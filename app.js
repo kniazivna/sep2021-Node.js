@@ -98,6 +98,8 @@
 
 //=========АБО ЩЕ ТАКИЙ ВАРІАНТ, ВСЕ В АДНІЙ CALLBACK ФУНКЦІЇ
 
+//!!!ПРОКОМЕНТУЙ, БУДЬ ЛАСКАБ ЧИ В ЦЬОМУ ВАРІАНТІ ВСЕ ВІРНО, ВОНО ТО ПРАЦЮЄ, АЛЕ В МЕНЕ ЧОМУСЬ Є СУМНІВИ ЧИ ТОЧНО ВСЕ ТАК, ЯК МАЄ БУТИ
+
 const path = require('path');
 const fs = require('fs');
 
@@ -116,8 +118,6 @@ const inPersonUsers = [
     {name: 'Marko', age: 6, city: 'Lviv'},
     {name: 'Sophia', age: 4, city: 'Lviv'}
 ];
-console.log(inPersonUsers);
-
 
 fs.mkdir(path.join(__dirname, 'main', 'online'), {recursive: true}, (err) => {
     if (err) {
@@ -130,32 +130,57 @@ fs.mkdir(path.join(__dirname, 'main', 'online'), {recursive: true}, (err) => {
             throw err;
         }
         onlineUsers.forEach(user => {
-            for(key in user){
+            for (key in user) {
                 fs.appendFile(onlinePath,
                     `\n${key.toUpperCase()}:${user[key]}`,
                     (err) => {
-                    if(err){
-                        console.log(err);
-                        throw err;
-                    }
-                        inPersonUsers.forEach(user => {
-                            for(key in user){
-                                fs.appendFile(inPersonPath,
-                                    `\n${key.toUpperCase()}:${user[key]}`,
-                                    (err) => {
-                                        if(err){
-                                            console.log(err);
-                                            throw err;
-                                        }
-                                })
+                        if (err) {
+                            console.log(err);
+                            throw err;
                         }
+
                     })
+            }
+
+        })
+        inPersonUsers.forEach(user => {
+            for (key in user) {
+                fs.appendFile(inPersonPath,
+                    `\n${key.toUpperCase()}:${user[key]}`,
+                    (err) => {
+                        if (err) {
+                            console.log(err);
+                            throw err;
+                        }
                     })
             }
         })
-
+        fs.readFile(onlinePath, (err, onlineData) => {
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+            fs.readFile(inPersonPath, (err, inPersonData) => {
+                if (err) {
+                    console.log(err);
+                    throw err;
+                }
+                fs.writeFile(onlinePath, inPersonData, (err) => {
+                    if (err) {
+                        console.log(err);
+                        throw err;
+                    }
+                    fs.writeFile(inPersonPath, onlineData, (err) => {
+                        if (err) {
+                            console.log(err);
+                            throw err;
+                        }
+                    })
+                })
+            })
         })
     })
+})
 
 
 
