@@ -27,14 +27,35 @@ const fs = require('fs');
 // але щоб ваш файл виглядав як NAME: ім'я з обєкту і т.д і всі пункти з нового рядка.
 //
 const onlineUsers =[
-{name: 'Olena', age: 33, city: 'Lviv'},
 {name: 'Petro', age: 30, city: 'Lviv'}
 ];
+onlineUsers.map(user => global.user = user);
 
 const inPersonUsers = [
-    {name: 'Oksana', age:31, city: 'Lviv'},
-    {name: 'Serdij', age:31, city: 'Lviv'}
+    {name: 'Oksana', age:31, city: 'Lviv'}
 ];
+inPersonUsers.map(user => global.inUser = user);
+
+fs.writeFile(path.join(__dirname, 'main','online', 'online.txt'),
+    `Name: ${user.name}\nAge:${user.age}\nCity:${user.city}`,
+    (err) =>{
+    if(err){
+        console.log(err);
+        throw err;
+    }
+})
+
+fs.writeFile(path.join(__dirname, 'main','inPerson', 'inPerson.txt'),
+    `Name:${inUser.name}\nAge:${inUser.age}\nCity:${inUser.city}`,
+    (err) =>{
+        if(err){
+            console.log(err);
+            throw err;
+        }
+    })
+
+//==================================================================================================================
+Коли ви це виконаєте напишіть функцію яка буде міняти місцями юзерів з одного файлу і папки в іншу. (ті, що були в папці inPerson будуть в папці online)
 
 
 
