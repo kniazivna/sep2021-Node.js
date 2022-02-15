@@ -2,14 +2,14 @@
 // Всі дії виконувати з допомогою модулів (вручну нічого не створюємо)
 // Створити основну папку (main), в яку покласти дві інші папки: перша - online, друга - inPerson
 
-const path = require('path');
-const fs = require('fs');
-
+// const path = require('path');
+// const fs = require('fs');
+//
 // fs.mkdir(path.join(__dirname, 'main', 'online'), {recursive: true}, (err) =>{
 //     if(err){
 //         console.log(err);
 //     } else{
-//         fs.mkdir(path.join(__dirname, 'main', 'inPerson',), {recursive: true}, (err) =>{
+//         fs.mkdir(path.join(__dirname, 'main', 'inPerson'), {recursive: true}, (err) =>{
 //             if(err){
 //                 console.log(err);
 //                 throw err;
@@ -41,60 +41,121 @@ const fs = require('fs');
 //             throw err;
 //         }
 //     })}});
-//
-//
-//
+
 // const inPersonUsers = [
 //     {name: 'Oksana', age:31, city: 'Lviv'},
 //     {name: 'Oksana', age:31, city: 'Lviv'},
 //     {name: 'Marko', age:6, city: 'Lviv'},
 //     {name: 'Sophiya', age:4, city: 'Lviv'}
 // ];
-// inPersonUsers.map(user => {global.inUser = user;
-//     fs.appendFile(path.join(__dirname, 'main','inPerson', 'inPerson.txt'),
-//         `Name:${inUser.name}\nAge:${inUser.age}\nCity:${inUser.city}\n\n`,
-//         (err) =>{
-//             if(err){
-//                 console.log(err);
-//                 throw err;
-//             }
-//         })});
+// inPersonUsers.forEach(user => {
+//     for(let key in user){
+//         fs.appendFile(path.join(__dirname, 'main','inPerson', 'inPerson.txt'),
+//    `\n${key.toUpperCase()}: ${user[key]}`,
+//     (err) => {
+//         if(err){
+//             console.log(err);
+//             throw err;
+//         }
+//     })}});
+
 
 //==================================================================================================================
 //Коли ви це виконаєте напишіть функцію яка буде міняти місцями юзерів з одного файлу і папки в іншу.
 // (ті, що були в папці inPerson будуть в папці online)
+//
+// const onlinePath = path.join(__dirname, 'main', 'online', 'online.txt');
+// const inPerson = path.join(__dirname, 'main', 'inPerson', 'inPerson.txt');
+// fs.readFile(onlinePath, (err, data1) => {
+//     if(err){
+//         console.log(err);
+//         throw err;
+//     }
+//
+//     fs.readFile(inPerson, (err,data2) =>{
+//         if(err){
+//             console.log(err);
+//             throw err;
+//         }
+//         fs.writeFile(onlinePath,
+//             data2,
+//             (err) => {
+//             if(err){
+//                 throw err;
+//             }
+//             fs.writeFile(inPerson,
+//                 data1,
+//                 (err) =>{
+//                 if(err){
+//                     console.log(err);
+//                     throw err;
+//                 }
+//                 })
+//             }
+//         )
+//
+// })})
+
+//=========АБО ЩЕ ТАКИЙ ВАРІАНТ, ВСЕ В АДНІЙ CALLBACK ФУНКЦІЇ
+
+const path = require('path');
+const fs = require('fs');
 
 const onlinePath = path.join(__dirname, 'main', 'online', 'online.txt');
-const inPerson = path.join(__dirname, 'main', 'inPerson', 'inPerson.txt');
-fs.readFile(onlinePath, (err, data1) => {
-    if(err){
+const inPersonPath = path.join(__dirname, 'main', 'inPerson', 'inPerson.txt');
+
+const onlineUsers = [
+    {name: 'Olena', age: 33, city: 'Lviv'},
+    {name: 'Petro', age: 30, city: 'Lviv'},
+    {name: 'Olia', age: 2, city: 'Lviv'}
+];
+
+const inPersonUsers = [
+    {name: 'Oksana', age: 31, city: 'Lviv'},
+    {name: 'Sergij', age: 31, city: 'Lviv'},
+    {name: 'Marko', age: 6, city: 'Lviv'},
+    {name: 'Sophia', age: 4, city: 'Lviv'}
+];
+console.log(inPersonUsers);
+
+
+fs.mkdir(path.join(__dirname, 'main', 'online'), {recursive: true}, (err) => {
+    if (err) {
         console.log(err);
         throw err;
     }
-
-    fs.readFile(inPerson, (err,data2) =>{
-        if(err){
+    fs.mkdir(path.join(__dirname, 'main', 'inPerson'), {recursive: true}, (err) => {
+        if (err) {
             console.log(err);
             throw err;
         }
-        fs.writeFile(onlinePath,
-            data2,
-            (err) => {
-            if(err){
-                throw err;
+        onlineUsers.forEach(user => {
+            for(key in user){
+                fs.appendFile(onlinePath,
+                    `\n${key.toUpperCase()}:${user[key]}`,
+                    (err) => {
+                    if(err){
+                        console.log(err);
+                        throw err;
+                    }
+                        inPersonUsers.forEach(user => {
+                            for(key in user){
+                                fs.appendFile(inPersonPath,
+                                    `\n${key.toUpperCase()}:${user[key]}`,
+                                    (err) => {
+                                        if(err){
+                                            console.log(err);
+                                            throw err;
+                                        }
+                                })
+                        }
+                    })
+                    })
             }
-            fs.writeFile(inPerson,
-                data1,
-                (err) =>{
-                if(err){
-                    console.log(err);
-                    throw err;
-                }
-                })
-            }
-        )
+        })
 
-})})
+        })
+    })
 
 
 
