@@ -1,0 +1,13 @@
+
+NAME:Oksana
+AGE:31
+CITY:Lviv
+AGE:31
+NAME:Sergij
+CITY:Lviv
+NAME:Marko
+AGE:6
+CITY:Lviv
+AGE:4
+NAME:Sophia
+CITY:Lviv

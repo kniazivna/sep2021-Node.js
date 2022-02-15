@@ -1,0 +1,10 @@
+
+NAME:Olena
+AGE:33
+CITY:Lviv
+NAME:Petro
+AGE:30
+CITY:Lviv
+NAME:Olia
+AGE:2
+CITY:Lviv
