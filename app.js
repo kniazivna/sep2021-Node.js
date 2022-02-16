@@ -16,18 +16,32 @@ app.set('views', path.join(__dirname, 'static'));
 
 app.listen(4000, () => {
     console.log('SERVER HAS STARTED!!!');
-});
+
 
 app.get('/login', (req, res) => {
     res.render('login');
 });
 
-for(const id = 1; id <= users.length; id++;)
-app.post('/login', (req, res) => {
-    console.log({...req.body, id: 1});
-    // users.push(...req.body, id:`$i`);
-    // res.redirect('/users');
+app.get('/users', (req, res) => {
+    res.render('users', {users});
 });
+
+app.get('/errorPage', (req, res) => {
+    res.render('errorPage');
+});
+
+for(const id = 1; id <= users.length; id++){
+app.post('/login', (req, res) => {
+    users.forEach(user => {
+        if(user.email === req.body.email){
+            res.redirect('/errorPage');
+        } else{
+            users.push({...req.body, id: `${id}`});
+            res.redirect('/users');
+        }
+    });
+});
+}
 
 app.get('/users', (req, res) => {
     res.render('users', {users});
@@ -44,6 +58,6 @@ app.get('/users/:id', (req, res) => {
 
 
 
-app.use((req, res) => {
-    res.render('notFound');
-});
+// app.use((req, res) => {
+//     res.render('notFound');
+// });
