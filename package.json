@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/kniazivna/sep2021-Node.js/issues"
   },
-  "homepage": "https://github.com/kniazivna/sep2021-Node.js#readme"
+  "homepage": "https://github.com/kniazivna/sep2021-Node.js#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
 }
