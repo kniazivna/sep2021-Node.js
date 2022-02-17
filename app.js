@@ -56,11 +56,11 @@ app.post('/login', (req, res) => {
         error = 'THIS EMAIL HAS USED, TRY WITH ANOTHER EMAIL';
         res.redirect('/errorPage');
         return;
-        console.log(req.body);
-        users.push({...req.body, id: users.length + 1})
-        console.log(users);
-        res.redirect('/users');
     }
+   // console.log(req.body);
+    users.push({...req.body, id: users.length + 1})
+   // console.log(users);
+    res.redirect('/users');
 });
 
 app.use((req, res) => {
