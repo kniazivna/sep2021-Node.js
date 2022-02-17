@@ -9,21 +9,22 @@
 </head>
 <body>
 <div style="background-color: antiquewhite; margin-bottom: 10px;">
-
+    {{#userWithId}}
     Id:
-    <div>{{userWithId.id}}</div>
+    <div>{{this.id}}</div>
     First name:
-    <div>{{userWithId.firstName}}</div>
+    <div>{{this.firstName}}</div>
     Last name:
-    <div>{{userWithId.lastName}}</div>
+    <div>{{this.lastName}}</div>
     Email:
-    <div>{{userWithId.email}}</div>
+    <div>{{this.email}}</div>
     Password:
-    <div>{{userWithId.password}}</div>
+    <div>{{this.password}}</div>
     Age:
-    <div>{{userWithId.age}}</div>
+    <div>{{this.age}}</div>
     City:
-    <div>{{userWithId.city}}</div>
+    <div>{{this.city}}</div>
+{{/userWithId}}
 
 </div>
 </body>

@@ -39,6 +39,10 @@ app.get('/errorPage', (req, res) => {
     res.render('errorPage', {error});
 });
 
+app.get('/signIn', (req, res) => {
+    res.render('signIn');
+});
+
 
 app.get('/users/:id', ({params}, res) => {
     const userWithId = users.find(user => user.id === +params.id);
@@ -51,15 +55,28 @@ app.get('/users/:id', ({params}, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const newUser = users.find(user => user.email === req.body.email);
+    const {body}=req;
+    const newUser = users.find(user => user.email === body.email);
     if (newUser) {
         error = 'THIS EMAIL HAS USED, TRY WITH ANOTHER EMAIL';
         res.redirect('/errorPage');
         return;
     }
-    users.push({...req.body, id: users.length + 1})
+    users.push({...body, id: users.length + 1})
+    console.log(body);
     res.redirect('/users');
 });
+
+app.post('/signIn', ({body}, res) => {
+    const signInUser = users.find(user => user.email === body.email && user.password === body.password);
+    if(!signInUser){
+        error = 'CHECK YOUR EMAIL AND PASSWORD OR TRY TO LOGIN';
+        res.redirect('/errorPage');
+        return
+    }
+        console.log(signInUser);
+    res.redirect(`/users/${signInUser.id:userWithId.id}`);
+})
 
 app.use((req, res) => {
     res.render('notFound');
