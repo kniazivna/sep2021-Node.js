@@ -19,19 +19,19 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/users', (req, res) => {
-    // if (req.query) {
-    //     let filteredUsers = [...users];
-    //     if (req.query.age) {
-    //         filteredUsers = filteredUsers.filter(user =>
-    //             user.age === req.query.age);
-    //     }
-    //     if (req.query.city) {
-    //         filteredUsers = filteredUsers.filter(user =>
-    //             user.city === req.query.city);
-    //     }
-    //     res.render('users', {users: filteredUsers});
-    //     return;
-    // }
+    if (req.query) {
+        let filteredUsers = [...users];
+        if (req.query.age) {
+            filteredUsers = filteredUsers.filter(user =>
+                user.age === req.query.age);
+        }
+        if (req.query.city) {
+            filteredUsers = filteredUsers.filter(user =>
+                user.city === req.query.city);
+        }
+        res.render('users', {users: filteredUsers});
+        return;
+    }
     res.render('users', {users});
 });
 
