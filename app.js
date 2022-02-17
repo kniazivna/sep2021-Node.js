@@ -18,16 +18,16 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
-app.get('/users', (req, res) => {
-    if (req.query) {
+app.get('/users', ({query}, res) => {
+    if (query) {
         let filteredUsers = [...users];
-        if (req.query.age) {
+        if (query.age) {
             filteredUsers = filteredUsers.filter(user =>
-                user.age === req.query.age);
+                user.age === query.age);
         }
-        if (req.query.city) {
+        if (query.city) {
             filteredUsers = filteredUsers.filter(user =>
-                user.city === req.query.city);
+                user.city === query.city);
         }
         res.render('users', {users: filteredUsers});
         return;
@@ -40,10 +40,10 @@ app.get('/errorPage', (req, res) => {
 });
 
 
-app.get('/users/:id', (req, res) => {
-    const userWithId = users.find(user => user.id === +req.params.id);
+app.get('/users/:id', ({params}, res) => {
+    const userWithId = users.find(user => user.id === +params.id);
     if (!userWithId) {
-        error = `USER WHITH THIS ID: ${req.params.id} WAS NOT FOUND`;
+        error = `USER WHITH THIS ID: ${params.id} WAS NOT FOUND`;
         res.redirect('/errorPage');
         return;
     }
@@ -57,9 +57,7 @@ app.post('/login', (req, res) => {
         res.redirect('/errorPage');
         return;
     }
-   // console.log(req.body);
     users.push({...req.body, id: users.length + 1})
-   // console.log(users);
     res.redirect('/users');
 });
 
