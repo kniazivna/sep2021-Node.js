@@ -51,7 +51,7 @@ app.get('/users/:id', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const newUser = users.some(user => user.email === req.body.email);
+    const newUser = users.find(user => user.email === req.body.email);
     if (newUser) {
         error = 'THIS EMAIL HAS USED, TRY WITH ANOTHER EMAIL';
         res.redirect('/errorPage');
