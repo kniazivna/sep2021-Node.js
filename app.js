@@ -19,6 +19,19 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/users', (req, res) => {
+    // if (req.query) {
+    //     let filteredUsers = [...users];
+    //     if (req.query.age) {
+    //         filteredUsers = filteredUsers.filter(user =>
+    //             user.age === req.query.age);
+    //     }
+    //     if (req.query.city) {
+    //         filteredUsers = filteredUsers.filter(user =>
+    //             user.city === req.query.city);
+    //     }
+    //     res.render('users', {users: filteredUsers});
+    //     return;
+    // }
     res.render('users', {users});
 });
 
@@ -28,25 +41,26 @@ app.get('/errorPage', (req, res) => {
 
 
 app.get('/users/:id', (req, res) => {
-     const userWithId = users.find(user => user.id === +req.params.id);
-     if(!userWithId){
-         error = `USER WHITH THIS ID: ${req.params.id} WAS NOT FOUND`;
-         res.redirect('/errorPage');
-         return;
-     }
+    const userWithId = users.find(user => user.id === +req.params.id);
+    if (!userWithId) {
+        error = `USER WHITH THIS ID: ${req.params.id} WAS NOT FOUND`;
+        res.redirect('/errorPage');
+        return;
+    }
     res.render('userById', {userWithId});
 });
 
 app.post('/login', (req, res) => {
-  const newUser = users.some(user => user.email === req.body.email);
-  if(newUser){
-      error = 'THIS EMAIL HAS USED, TRY WITH ANOTHER EMAIL';
-      res.redirect('/errorPage');
-      return;
-    console.log(req.body);
-    users.push({...req.body, id:users.length+1})
-    console.log(users);
-    res.redirect('/users');
+    const newUser = users.some(user => user.email === req.body.email);
+    if (newUser) {
+        error = 'THIS EMAIL HAS USED, TRY WITH ANOTHER EMAIL';
+        res.redirect('/errorPage');
+        return;
+        console.log(req.body);
+        users.push({...req.body, id: users.length + 1})
+        console.log(users);
+        res.redirect('/users');
+    }
 });
 
 app.use((req, res) => {
