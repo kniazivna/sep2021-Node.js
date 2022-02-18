@@ -11,7 +11,7 @@ app.set('view engine', '.hbs');
 app.engine('.hbs', engine({defaultLayout: false}));
 app.set('views', path.join(__dirname, 'static'));
 
-const users = [];
+let users = [];
 let error = '';
 
 app.get('/login', (req, res) => {
@@ -51,17 +51,19 @@ app.get('/users/:id', ({params}, res) => {
         res.redirect('/errorPage');
         return;
     }
+
     res.render('userById', {userWithId});
 });
 
 app.post('/login', (req, res) => {
-    const {body}=req;
+    const {body} = req;
     const newUser = users.find(user => user.email === body.email);
     if (newUser) {
         error = 'THIS EMAIL HAS USED, TRY WITH ANOTHER EMAIL';
         res.redirect('/errorPage');
         return;
     }
+
     users.push({...body, id: users.length + 1})
     console.log(body);
     res.redirect('/users');
@@ -69,14 +71,20 @@ app.post('/login', (req, res) => {
 
 app.post('/signIn', ({body}, res) => {
     const signInUser = users.find(user => user.email === body.email && user.password === body.password);
-    if(!signInUser){
+    if (!signInUser) {
         error = 'CHECK YOUR EMAIL AND PASSWORD OR TRY TO LOGIN';
         res.redirect('/errorPage');
         return
     }
-        console.log(signInUser);
-    res.redirect(`/users/${signInUser.id:userWithId.id}`);
-})
+    console.log(signInUser);
+    res.redirect(`/users/${signInUser.id}`);
+});
+
+app.get('/deleteUserById/:id', (req, res) => {
+    users = users.filter(user => user.id !== +req.params.id);
+res.redirect('/users');
+});
+
 
 app.use((req, res) => {
     res.render('notFound');

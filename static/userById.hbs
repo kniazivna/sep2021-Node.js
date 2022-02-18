@@ -24,6 +24,11 @@
     <div>{{this.age}}</div>
     City:
     <div>{{this.city}}</div>
+
+        <form action="/deleteUserById/{{this.id}}" method="get">
+            <input type="submit" value="Delete user">
+        </form>
+
 {{/userWithId}}
 
 </div>
