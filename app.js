@@ -102,7 +102,6 @@ app.get('/deleteUserById/:id', (req, res) => {
 });
 
 app.get('/errorPage', (req, res) => {
-
     res.render('errorPage', {error});
 });
 
