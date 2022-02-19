@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'static'));
 app.use(apiRouters);
 
 // let users = [];
-let error = '';
+//let error = '';
 
 // app.get('/login', (req, res) => {
 //
