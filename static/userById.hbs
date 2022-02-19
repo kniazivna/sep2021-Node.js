@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hw-2</title>
+</head>
+<body>
+<div style="background-color: antiquewhite; margin-bottom: 10px;">
+    {{#userWithId}}
+        Id:
+        <div>{{this.id}}</div>
+        First name:
+        <div>{{this.firstName}}</div>
+        Last name:
+        <div>{{this.lastName}}</div>
+        Email:
+        <div>{{this.email}}</div>
+        Password:
+        <div>{{this.password}}</div>
+        Age:
+        <div>{{this.age}}</div>
+        City:
+        <div>{{this.city}}</div>
+
+        <form action="/deleteUserById/{{this.id}}" method="get">
+            <input type="submit" value="Delete user">
+        </form>
+
+    {{/userWithId}}
+
+</div>
+</body>
+</html>
