@@ -24,18 +24,20 @@ class UserController {
         res.render('users', {users});
 
     }
+
     getUserById(req, res) {
-        const {params} = req;
-        const userWithId = users.find(user => user.id === +params.id);
+        const {id} = req.params;
+        const userWithId = users.find(user => user.id === Number(id));
 
         if (!userWithId) {
-            error = `USER WHITH THIS ID: ${params.id} WAS NOT FOUND`;
+            error = `USER WHITH THIS ID: ${id} WAS NOT FOUND`;
             res.redirect('/errorPage');
             return;
         }
 
         res.render('userById', {userWithId});
     }
+
 }
 
 module.exports = new UserController();

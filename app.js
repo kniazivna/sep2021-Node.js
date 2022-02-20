@@ -24,9 +24,12 @@ app.use(apiRouters);
 //тут я до кінця не зрозуміла, як в роути винести видалення юзера, і окремий роут робила, і до users додавала, ніякий з
 // варіантів не працював, можливо підкажеш як правильно реалізувати?
 //саме цікаве, що і тут чомусь вже не спрацьовує(
+//хоча в класній роботі цей код працює
+
+
 app.get('/deleteUserById/:id', (req, res) => {
-const {params} = req;
-    users = users.filter(user => user.id !== +params.id);
+const {id} = req.params;
+    users = users.filter(user => user.id !== Number(id));
     res.redirect('/users');
 });
 
