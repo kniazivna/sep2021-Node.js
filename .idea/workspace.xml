@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="553883c9-9722-4211-9e5c-3a379a73e4be" name="Changes" comment="" />
+    <list default="true" id="553883c9-9722-4211-9e5c-3a379a73e4be" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/users.ts" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,6 +65,7 @@
       <workItem from="1645544725808" duration="9745000" />
       <workItem from="1645554954471" duration="1746000" />
       <workItem from="1645556720283" duration="1230000" />
+      <workItem from="1645607032341" duration="505000" />
     </task>
     <task id="LOCAL-00001" summary="done">
       <created>1645557919688</created>
@@ -76,7 +81,21 @@
       <option name="project" value="LOCAL" />
       <updated>1645557939838</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="done">
+      <created>1645607105401</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1645607105401</updated>
+    </task>
+    <task id="LOCAL-00004" summary="done">
+      <created>1645607279996</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1645607279996</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

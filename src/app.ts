@@ -1,7 +1,4 @@
 import express from 'express';
-import { users } from './users';
-
-console.log(users);
 
 const app = express();
 
