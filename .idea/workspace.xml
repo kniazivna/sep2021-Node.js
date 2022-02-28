@@ -3,6 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="553883c9-9722-4211-9e5c-3a379a73e4be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/app.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/migration/1645554495912-CreateTableUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/migration/1645554495912-CreateTableUsers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/migration/1645554495912-CreateTableUsers.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/migration/1645554495912-CreateTableUsers.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/users.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/users.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migration/1645554495912-CreateTableUsers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migration/1645554495912-CreateTableUsers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migration/1645557412519-CreateTablePosts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migration/1645557412519-CreateTablePosts.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +27,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="ts_eslint_typeorm" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="25Se8Bz4HdVXBM3757yjGrHGeYW" />
@@ -47,6 +61,23 @@
       <recent name="C:\Users\HP\WebstormProjects\sep2021-Node.js\src" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="migration:run" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="migration:run" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.migration:run" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -66,6 +97,8 @@
       <workItem from="1645607032341" duration="2111000" />
       <workItem from="1645619673532" duration="1228000" />
       <workItem from="1645863586747" duration="7000" />
+      <workItem from="1646045698991" duration="238000" />
+      <workItem from="1646051611703" duration="4801000" />
     </task>
     <task id="LOCAL-00001" summary="done">
       <created>1645557919688</created>
@@ -102,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645607572726</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="done">
+      <created>1646045723479</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1646045723479</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
