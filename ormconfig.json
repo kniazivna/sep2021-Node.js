@@ -4,7 +4,7 @@
   "port": 3306,
   "username": "root",
   "password": "rootroot",
-  "database": "sep2021node",
+  "database": "okten",
   "synchronize": true,
   "logging": false,
   "entities": [

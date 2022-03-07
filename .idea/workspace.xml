@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="553883c9-9722-4211-9e5c-3a379a73e4be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ormconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/ormconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migration/1646643054752-CreateTableUsers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migration/1646643054752-CreateTableUsers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migration/1646643072048-CreateTablePosts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migration/1646643072048-CreateTablePosts.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migration/1646643105372-CreateTableComments.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migration/1646643105372-CreateTableComments.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
