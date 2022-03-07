@@ -4,8 +4,6 @@
     <list default="true" id="553883c9-9722-4211-9e5c-3a379a73e4be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migration/1645554495912-CreateTableUsers.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migration/1645557412519-CreateTablePosts.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +93,7 @@
       <workItem from="1646051611703" duration="4814000" />
       <workItem from="1646578779506" duration="1870000" />
       <workItem from="1646639041310" duration="1907000" />
-      <workItem from="1646641156669" duration="603000" />
+      <workItem from="1646641156669" duration="2055000" />
     </task>
     <task id="LOCAL-00001" summary="done">
       <created>1645557919688</created>
@@ -146,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646057405404</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="/">
+      <created>1646641774703</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1646641774703</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,7 +159,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="done" />
-    <option name="LAST_COMMIT_MESSAGE" value="done" />
+    <MESSAGE value="/" />
+    <option name="LAST_COMMIT_MESSAGE" value="/" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
