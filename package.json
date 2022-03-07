@@ -11,7 +11,9 @@
     "typeorm": "node -r ts-node/register ./node_modules/typeorm/cli.js",
     "migration:generate": "typeorm migration:create -n ",
     "migration:run": "npm run typeorm migration:run",
-    "migration:revert": "npm run typeorm migration:revert"
+    "migration:revert": "npm run typeorm migration:revert",
+    "start:dev": "nodemon app.ts",
+    "build": "rimraf dist tsc --watch"
   },
   "keywords": [],
   "author": "",
