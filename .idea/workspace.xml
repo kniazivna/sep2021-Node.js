@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="553883c9-9722-4211-9e5c-3a379a73e4be" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/migration/1645554495912-CreateTableUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/migration/1645554495912-CreateTableUsers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/migration/1645554495912-CreateTableUsers.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/migration/1645554495912-CreateTableUsers.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/users.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/users.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migration/1645554495912-CreateTableUsers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migration/1645554495912-CreateTableUsers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migration/1645557412519-CreateTablePosts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migration/1645557412519-CreateTablePosts.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migration/1645554495912-CreateTableUsers.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migration/1645557412519-CreateTablePosts.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +92,10 @@
       <workItem from="1645619673532" duration="1228000" />
       <workItem from="1645863586747" duration="7000" />
       <workItem from="1646045698991" duration="238000" />
-      <workItem from="1646051611703" duration="4801000" />
+      <workItem from="1646051611703" duration="4814000" />
+      <workItem from="1646578779506" duration="1870000" />
+      <workItem from="1646639041310" duration="1907000" />
+      <workItem from="1646641156669" duration="603000" />
     </task>
     <task id="LOCAL-00001" summary="done">
       <created>1645557919688</created>
@@ -142,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646045723479</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="done">
+      <created>1646057405404</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1646057405404</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
