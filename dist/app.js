@@ -6,11 +6,56 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 const express_1 = __importDefault(require("express"));
 const typeorm_1 = require("typeorm");
+const user_1 = require("./entity/user");
 const app = (0, express_1.default)();
-// app.get('/users', async (req, res) => {
-//     const users = await getConnectionManager().getRepository(User)
-//     res.end();
-// });
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded());
+app.get('/users', async (req, res) => {
+    // запит по певних параметрах
+    // const users = await getManager().getRepository(User).findOne({
+    //     where: {
+    //         firstName: 'test',
+    //     },
+    // });
+    // console.log(users);
+    // res.json(users);
+    // const users = await getManager().getRepository(User).find();
+    // console.log(users);
+    // res.json(users);
+    // варіант через queryBuilder
+    const users = await (0, typeorm_1.getManager)().getRepository(user_1.User)
+        .createQueryBuilder('user')
+        // в дужках where прописується sql код
+        .where('user.lastName = "gh"')
+        .getMany();
+    console.log(users);
+    res.json(users);
+});
+app.post('/users', async (req, res) => {
+    try {
+        const createdUser = await (0, typeorm_1.getManager)().getRepository(user_1.User).save(req.body);
+        res.status(201).json(createdUser);
+    }
+    catch (e) {
+        console.log(e);
+    }
+});
+// оновлення даних
+app.put('/users/:id', async (req, res) => {
+    try {
+        const { password, email } = req.body;
+        const updatedUser = await (0, typeorm_1.getManager)().getRepository(user_1.User)
+            .update({ id: Number(req.params.id) }, {
+            password,
+            email,
+        });
+        res.status(201).json(updatedUser);
+    }
+    catch (e) {
+        console.log(e);
+    }
+});
+app.delete;
 app.listen(4000, async () => {
     console.log('SERVER HAS STARTED!!!!');
     try {
