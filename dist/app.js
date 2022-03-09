@@ -19,17 +19,26 @@ app.get('/users', async (req, res) => {
     // });
     // console.log(users);
     // res.json(users);
-    // const users = await getManager().getRepository(User).find();
+    // з'єднання з таблицею постів
+    // const users = await getManager().getRepository(User).find({ relations: ['posts'] });
     // console.log(users);
     // res.json(users);
-    // варіант через queryBuilder
+    //
+    // варіанти через queryBuilder
+    // const users = await getManager()
+    //     .getRepository(User)
+    //     .createQueryBuilder('user')
+    //     // в дужках where прописується sql код
+    //     // .where('user.lastName = "gh"')
+    //     .getMany();
+    // console.log(users);
+    // res.json(users);
     const users = await (0, typeorm_1.getManager)()
         .getRepository(user_1.User)
         .createQueryBuilder('user')
-        // в дужках where прописується sql код
-        // .where('user.lastName = "gh"')
+        .leftJoin('Posts', 'posts', 'posts.userId = user.id')
+        // .where('posts.text = "test88test88test"')
         .getMany();
-    console.log(users);
     res.json(users);
 });
 app.post('/users', async (req, res) => {
@@ -62,7 +71,10 @@ app.patch('/users/:id', async (req, res) => {
 app.delete('/users/:id', async (req, res) => {
     const deletedUser = await (0, typeorm_1.getManager)()
         .getRepository(user_1.User)
-        .delete({ id: Number(req.params.id) });
+        // повністю видаляє дані з бд
+        // .delete({ id: Number(req.params.id) });
+        // в бд дані залишаються, на фронт їх невидно(в deletesAt замість null буде час видалення)
+        .softDelete({ id: Number(req.params.id) });
     res.json(deletedUser);
 });
 app.listen(4200, async () => {

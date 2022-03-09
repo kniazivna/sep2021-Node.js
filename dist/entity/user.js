@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const commonFields_1 = require("./commonFields");
+const post_1 = require("./post");
 let User = class User extends commonFields_1.CommonFields {
 };
 __decorate([
@@ -62,6 +63,10 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => post_1.Post, (post) => post.user),
+    __metadata("design:type", Array)
+], User.prototype, "posts", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)('users', { database: 'okten' })
 ], User);
