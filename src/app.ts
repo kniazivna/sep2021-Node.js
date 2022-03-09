@@ -50,20 +50,28 @@ app.post('/users', async (req, res) => {
     }
 });
 
+// app.get('users/:id', async (req:Request, res:Response) => {
+//     const { id } = req.params;
+//     const user = await getManager()
+//         .getRepository(User)
+//         .createQueryBuilder('user')
+//         .where('user.id = :id', { id: Number(id) })
+//         .leftJoin('Posts', 'posts', 'posts.userId = user.id')
+//         .getOne();
+//     res.json(user);
+//     console.log(user);
+// });
+
 // оновлення даних
 app.patch('/users/:id', async (req, res) => {
-    try {
-        const { password, email } = req.body;
-        const updatedUser = await getManager()
-            .getRepository(User)
-            .update({ id: Number(req.params.id) }, {
-                password,
-                email,
-            });
-        res.status(201).json(updatedUser);
-    } catch (e) {
-        console.log(e);
-    }
+    const { password, email } = req.body;
+    const updatedUser = await getManager()
+        .getRepository(User)
+        .update({ id: Number(req.params.id) }, {
+            password,
+            email,
+        });
+    res.json(updatedUser);
 });
 
 app.delete('/users/:id', async (req, res) => {
