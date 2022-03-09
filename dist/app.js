@@ -23,17 +23,20 @@ app.get('/users', async (req, res) => {
     // console.log(users);
     // res.json(users);
     // варіант через queryBuilder
-    const users = await (0, typeorm_1.getManager)().getRepository(user_1.User)
+    const users = await (0, typeorm_1.getManager)()
+        .getRepository(user_1.User)
         .createQueryBuilder('user')
         // в дужках where прописується sql код
-        .where('user.lastName = "gh"')
+        // .where('user.lastName = "gh"')
         .getMany();
     console.log(users);
     res.json(users);
 });
 app.post('/users', async (req, res) => {
     try {
-        const createdUser = await (0, typeorm_1.getManager)().getRepository(user_1.User).save(req.body);
+        const createdUser = await (0, typeorm_1.getManager)()
+            .getRepository(user_1.User)
+            .save(req.body);
         res.status(201).json(createdUser);
     }
     catch (e) {
@@ -41,10 +44,11 @@ app.post('/users', async (req, res) => {
     }
 });
 // оновлення даних
-app.put('/users/:id', async (req, res) => {
+app.patch('/users/:id', async (req, res) => {
     try {
         const { password, email } = req.body;
-        const updatedUser = await (0, typeorm_1.getManager)().getRepository(user_1.User)
+        const updatedUser = await (0, typeorm_1.getManager)()
+            .getRepository(user_1.User)
             .update({ id: Number(req.params.id) }, {
             password,
             email,
@@ -55,8 +59,13 @@ app.put('/users/:id', async (req, res) => {
         console.log(e);
     }
 });
-app.delete;
-app.listen(4000, async () => {
+app.delete('/users/:id', async (req, res) => {
+    const deletedUser = await (0, typeorm_1.getManager)()
+        .getRepository(user_1.User)
+        .delete({ id: Number(req.params.id) });
+    res.json(deletedUser);
+});
+app.listen(4200, async () => {
     console.log('SERVER HAS STARTED!!!!');
     try {
         const connection = await (0, typeorm_1.createConnection)();

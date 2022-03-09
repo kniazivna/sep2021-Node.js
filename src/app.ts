@@ -20,10 +20,11 @@ app.get('/users', async (req:Request, res:Response) => {
     // console.log(users);
     // res.json(users);
     // варіант через queryBuilder
-    const users = await getManager().getRepository(User)
+    const users = await getManager()
+        .getRepository(User)
         .createQueryBuilder('user')
         // в дужках where прописується sql код
-        .where('user.lastName = "gh"')
+        // .where('user.lastName = "gh"')
         .getMany();
     console.log(users);
     res.json(users);
@@ -31,7 +32,9 @@ app.get('/users', async (req:Request, res:Response) => {
 
 app.post('/users', async (req, res) => {
     try {
-        const createdUser = await getManager().getRepository(User).save(req.body);
+        const createdUser = await getManager()
+            .getRepository(User)
+            .save(req.body);
         res.status(201).json(createdUser);
     } catch (e) {
         console.log(e);
@@ -39,10 +42,11 @@ app.post('/users', async (req, res) => {
 });
 
 // оновлення даних
-app.put('/users/:id', async (req, res) => {
+app.patch('/users/:id', async (req, res) => {
     try {
         const { password, email } = req.body;
-        const updatedUser = await getManager().getRepository(User)
+        const updatedUser = await getManager()
+            .getRepository(User)
             .update({ id: Number(req.params.id) }, {
                 password,
                 email,
@@ -53,9 +57,14 @@ app.put('/users/:id', async (req, res) => {
     }
 });
 
-app.delete
+app.delete('/users/:id', async (req, res) => {
+    const deletedUser = await getManager()
+        .getRepository(User)
+        .delete({ id: Number(req.params.id) });
+    res.json(deletedUser);
+});
 
-app.listen(4000, async () => {
+app.listen(4200, async () => {
     console.log('SERVER HAS STARTED!!!!');
     try {
         const connection = await createConnection();
