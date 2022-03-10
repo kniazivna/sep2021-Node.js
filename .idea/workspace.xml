@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="553883c9-9722-4211-9e5c-3a379a73e4be" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +100,7 @@
       <workItem from="1646847717750" duration="871000" />
       <workItem from="1646848749507" duration="1724000" />
       <workItem from="1646850540747" duration="12625000" />
-      <workItem from="1646866090471" duration="5038000" />
+      <workItem from="1646866090471" duration="5375000" />
     </task>
     <task id="LOCAL-00001" summary="done">
       <created>1645557919688</created>
@@ -218,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646866043835</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="hw-5-done">
+      <created>1646871520185</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1646871520185</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,7 +231,8 @@
     <MESSAGE value="done" />
     <MESSAGE value="/" />
     <MESSAGE value="hw-5" />
-    <option name="LAST_COMMIT_MESSAGE" value="hw-5" />
+    <MESSAGE value="hw-5-done" />
+    <option name="LAST_COMMIT_MESSAGE" value="hw-5-done" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

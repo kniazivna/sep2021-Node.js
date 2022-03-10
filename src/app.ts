@@ -162,7 +162,7 @@ app.post('/comments/action', async (req: Request, res: Response) => {
             .getOne();
 
         if (!comment) {
-            throw new Error('wrong comment ID');
+            throw new Error('Check comment id');
         }
 
         if (action === 'like') {
