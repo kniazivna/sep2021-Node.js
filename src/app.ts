@@ -4,52 +4,13 @@ import { createConnection, getManager } from 'typeorm';
 import { User } from './entity/user';
 import { Post } from './entity/post';
 import { Comment } from './entity/comment';
+import { apiRouter } from './router/apiRouter';
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/users', async (req:Request, res:Response) => {
-    // запит по певних параметрах
-    // const users = await getManager().getRepository(User).findOne({
-    //     where: {
-    //         firstName: 'test',
-    //     },
-    // });
-    // console.log(users);
-    // res.json(users);
-    // з'єднання з таблицею постів
-    const users = await getManager().getRepository(User).find({ relations: ['posts'] });
-    res.json(users);
-    //
-    // варіанти через queryBuilder
-    // const users = await getManager()
-    //     .getRepository(User)
-    //     .createQueryBuilder('user')
-    //     // в дужках where прописується sql код
-    //     // .where('user.lastName = "gh"')
-    //     .getMany();
-    // console.log(users);
-    // res.json(users);
-    // const users = await getManager()
-    //     .getRepository(User)
-    //     .createQueryBuilder('user')
-    //     .leftJoin('Posts', 'posts', 'posts.userId = user.id')
-    // // .where('posts.text = "test88test88test"')
-    //     .getMany();
-    // res.json(users);
-});
-
-app.post('/users', async (req, res) => {
-    try {
-        const createdUser = await getManager()
-            .getRepository(User)
-            .save(req.body);
-        res.status(201).json(createdUser);
-    } catch (e) {
-        console.log(e);
-    }
-});
+app.use(apiRouter);
 
 app.get('/users/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
