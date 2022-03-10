@@ -178,7 +178,7 @@ app.post('/comments/action', async (req: Request, res: Response) => {
     }
 });
 
-app.listen(4200, async () => {
+app.listen(4000, async () => {
     console.log('SERVER HAS STARTED!!!!');
     try {
         const connection = await createConnection();
