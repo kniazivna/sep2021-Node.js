@@ -13,6 +13,12 @@ class UsersController {
         const createdUser = await usersService.createUser(req.body);
         return res.json(createdUser);
     }
+
+    public async getUserByEmail(req:Request, res:Response): Promise<Response<IUser>> {
+        const { email } = req.params;
+        const userByEmail = await usersService.getUserByEmail(email);
+        return res.json(userByEmail);
+    }
 }
 
 export const usersController = new UsersController();

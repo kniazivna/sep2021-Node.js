@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 import { IUser } from '../entity/user';
 import { userRepository } from '../repositiries/user/userRepository';
 
@@ -7,9 +9,24 @@ class UsersService {
         return users;
     }
 
-    public async createUser(user:IUser): Promise<IUser> {
-        const createdUser = userRepository.createUser(user);
+    public async createUser(user: IUser): Promise<IUser> {
+        const { password } = user;
+
+        const hashedPassword = await this._hashPassword(password);
+        const dataToSave = { ...user, password: hashedPassword };
+        const createdUser = userRepository.createUser(dataToSave);
         return createdUser;
+    }
+
+    public async getUserByEmail(email: string): Promise<IUser | undefined> {
+        const userByEmail = userRepository.getUserByEmail(email);
+        return userByEmail;
+        // можна коротше записати:
+        // return userRepository.getUserByEmail(email);
+    }
+
+    private async _hashPassword(password: string): Promise<string> {
+        return bcrypt.hash(password, 10);
     }
 }
 
