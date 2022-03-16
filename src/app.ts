@@ -139,8 +139,10 @@ app.post('/comments/action', async (req: Request, res: Response) => {
     }
 });
 
-app.listen(4000, async () => {
-    console.log('SERVER HAS STARTED!!!!');
+const { PORT } = process.env;
+
+app.listen(PORT, async () => {
+    console.log(`SERVER HAS STARTED ON PORT: ${PORT}!!!!`);
     try {
         const connection = await createConnection();
         if (connection) {
