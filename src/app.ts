@@ -1,10 +1,12 @@
 import 'reflect-metadata';
 import express, { Request, Response } from 'express';
 import { createConnection, getManager } from 'typeorm';
+
 import { User } from './entity/user';
 import { Post } from './entity/post';
 import { Comment } from './entity/comment';
 import { apiRouter } from './router/apiRouter';
+import { config } from './config/config';
 
 const app = express();
 app.use(express.json());
@@ -139,7 +141,7 @@ app.post('/comments/action', async (req: Request, res: Response) => {
     }
 });
 
-const { PORT } = process.env;
+const { PORT } = config;
 
 app.listen(PORT, async () => {
     console.log(`SERVER HAS STARTED ON PORT: ${PORT}!!!!`);
