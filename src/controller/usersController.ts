@@ -19,6 +19,25 @@ class UsersController {
         const userByEmail = await usersService.getUserByEmail(email);
         return res.json(userByEmail);
     }
+
+    public async getUserById(req: Request, res: Response): Promise<Response<IUser>> {
+        const { id } = req.params;
+        const userById = await usersService.getUserById(Number(id));
+        return res.json(userById);
+    }
+
+    public async updateUser(req: Request, res: Response): Promise<Response<IUser>> {
+        const { id } = req.params;
+        const { password, email } = req.body;
+        const updatedUser = await usersService.updatedUser(Number(id), email, password);
+        return res.json(updatedUser);
+    }
+
+    public async deleteUser(req: Request, res: Response): Promise<void | object> {
+        const { id } = req.params;
+        const deletedUser = await usersService.deletedUser(Number(id));
+        res.json(deletedUser);
+    }
 }
 
 export const usersController = new UsersController();

@@ -19,10 +19,19 @@ class UsersService {
     }
 
     public async getUserByEmail(email: string): Promise<IUser | undefined> {
-        // const userByEmail = userRepository.getUserByEmail(email);
-        // return userByEmail;
-        // можна коротше записати:
         return userRepository.getUserByEmail(email);
+    }
+
+    public async getUserById(id: number): Promise<IUser | undefined> {
+        return userRepository.getUserById(id);
+    }
+
+    public async updatedUser(id: number, email: string, password: string): Promise<IUser | object> {
+        return userRepository.updatedUser(id, email, password);
+    }
+
+    public async deletedUser(id: number): Promise<void | object> {
+        return userRepository.deletedUser(id);
     }
 
     private async _hashPassword(password: string): Promise<string> {
