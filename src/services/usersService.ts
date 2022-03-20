@@ -5,10 +5,6 @@ import { userRepository } from '../repositiries/user/userRepository';
 import { config } from '../config/config';
 
 class UsersService {
-    public async getUsers(): Promise<IUser[]> {
-        return userRepository.getUsers();
-    }
-
     public async createUser(user: IUser): Promise<IUser> {
         const { password } = user;
 
@@ -20,18 +16,6 @@ class UsersService {
 
     public async getUserByEmail(email: string): Promise<IUser | undefined> {
         return userRepository.getUserByEmail(email);
-    }
-
-    public async getUserById(id: number): Promise<IUser | undefined> {
-        return userRepository.getUserById(id);
-    }
-
-    public async updatedUser(id: number, email: string, password: string): Promise<IUser | object> {
-        return userRepository.updatedUser(id, email, password);
-    }
-
-    public async deletedUser(id: number): Promise<void | object> {
-        return userRepository.deletedUser(id);
     }
 
     private async _hashPassword(password: string): Promise<string> {
