@@ -1,19 +1,18 @@
 import {
-    Column, Entity, ManyToOne, JoinColumn, OneToMany,
+    Column, Entity, ManyToOne, JoinColumn,
 } from 'typeorm';
 
-import { CommonFields } from './commonFields';
+import { CommonFields, ICommonFields } from './commonFields';
 import { User } from './user';
-import { Comment, IComment } from './comment';
+import { config } from '../config/config';
 
-export interface IPost {
+export interface IPost extends ICommonFields{
     title: string;
     text: string;
     userId: number;
-    comments: IComment[];
 }
 
-@Entity('posts', { database: 'okten' })
+@Entity('posts', { database: config.MYSQL_DATABASE_NAME })
 export class Post extends CommonFields implements IPost {
     @Column({
         type: 'varchar',
@@ -37,7 +36,4 @@ export class Post extends CommonFields implements IPost {
     @ManyToOne(() => User, (user) => user.posts)
     @JoinColumn({ name: 'userId' })
         user:User;
-
-@OneToMany(() => Comment, (comment) => comment.post)
-    comments: Comment[];
 }
