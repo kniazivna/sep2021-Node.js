@@ -1,5 +1,5 @@
 import { usersService } from './usersService';
-import { IUser } from '../entity/user';
+import { IUser } from '../entity';
 import { tokenService } from './tokenService';
 import { ITokenData } from '../interfaces/token.interface';
 
