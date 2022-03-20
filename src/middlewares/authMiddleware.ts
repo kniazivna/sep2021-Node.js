@@ -1,19 +1,33 @@
-import { NextFunction, Request, Response } from 'express';
-import { tokenService } from '../services';
+import { NextFunction, Response } from 'express';
+import { tokenService, usersService } from '../services';
+import { IRequestExtended } from '../interfaces';
 
 class AuthMiddleware {
-    public async checkAccessToken(req:Request, res: Response, next: NextFunction) {
-        const authToken = req.get('Authorization');
+    public async checkAccessToken(req:IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const authToken = req.get('Authorization');
 
-        if (!authToken) {
-            throw new Error('No token');
+            if (!authToken) {
+                throw new Error('No token');
+            }
+
+            const { userEmail } = tokenService.verifyToken(authToken);
+
+            const userFromToken = await usersService.getUserByEmail(userEmail);
+
+            req.user = userFromToken;
+
+            if (!userFromToken) {
+                throw new Error('Wrong token');
+            }
+
+            next();
+        } catch (e: any) {
+            res.json({
+                status: 400,
+                message: e.message,
+            });
         }
-
-        const resp = tokenService.verifyToken(authToken);
-
-        console.log(resp);
-
-        next();
     }
 }
 
