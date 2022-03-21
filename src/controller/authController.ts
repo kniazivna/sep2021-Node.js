@@ -25,6 +25,14 @@ class AuthController {
 
         return res.json('Ok');
     }
+
+    login(req: IRequestExtended, res:Response) {
+        try {
+            res.json('Ok');
+        } catch (e) {
+            res.status(400).json(e);
+        }
+    }
 }
 
 export const authController = new AuthController();
