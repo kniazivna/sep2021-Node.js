@@ -1,2 +1,2 @@
 export * from './authMiddleware';
-export * from './u';
+export * from './userMiddleware';

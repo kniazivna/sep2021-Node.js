@@ -28,6 +28,8 @@ class AuthController {
 
     login(req: IRequestExtended, res:Response) {
         try {
+            const { id, email } = req.user as IUser;
+
             res.json('Ok');
         } catch (e) {
             res.status(400).json(e);
