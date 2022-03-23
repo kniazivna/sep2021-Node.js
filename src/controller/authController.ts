@@ -4,6 +4,7 @@ import { authService, tokenService } from '../services';
 import { ITokenData, IRequestExtended } from '../interfaces';
 import { COOKIE } from '../constants/cookie';
 import { IUser } from '../entity';
+import {tokenRepository} from "../repositiries/token/tokenRepository";
 
 class AuthController {
     public async registration(req: Request, res: Response): Promise<Response<ITokenData>> {
@@ -26,11 +27,19 @@ class AuthController {
         return res.json('Ok');
     }
 
-    login(req: IRequestExtended, res:Response) {
+    public async login(req: IRequestExtended, res:Response) {
         try {
             const { id, email } = req.user as IUser;
 
-            res.json('Ok');
+            const tokenPair = tokenService.generateTokenPair({userId: id, userEmail: email });
+
+            const {} = tokenPair;
+            await tokenRepository.createToken({ refreshToken });
+
+            res.json({
+                ...tokenPair,
+                user: req.user,
+            });
         } catch (e) {
             res.status(400).json(e);
         }

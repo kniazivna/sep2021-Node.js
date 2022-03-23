@@ -2,7 +2,7 @@ import { EntityRepository, getManager, Repository } from 'typeorm';
 
 import { IToken, Token } from '../../entity';
 import { ITokenRepository } from './tokenRepository.interface';
-import { ITokenDataToSave } from '../../interfaces/token.interface';
+import { ITokenDataToSave } from '../../interfaces';
 
 @EntityRepository(Token)
 class TokenRepository extends Repository<Token> implements ITokenRepository {

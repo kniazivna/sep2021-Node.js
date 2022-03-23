@@ -6,8 +6,7 @@ import { tokenRepository } from '../repositiries/token/tokenRepository';
 import { ITokenPair, IUserPayload } from '../interfaces';
 
 class TokenService {
-    public async generateTokenPair(payload: IUserPayload):
-        Promise<ITokenPair> {
+    public generateTokenPair(payload: IUserPayload): ITokenPair {
         const accessToken = jwt.sign(
             payload,
             config.SECRET_ACCESS_KEY as string,
