@@ -7,12 +7,20 @@ import { User } from './user';
 import { config } from '../config/config';
 
 export interface IToken extends ICommonFields{
+    accessToken: string;
     refreshToken: string;
     userId: number;
 }
 
 @Entity('tokens', { database: config.MYSQL_DATABASE_NAME })
 export class Token extends CommonFields implements IToken {
+    @Column({
+        type: 'varchar',
+        width: 250,
+        nullable: false,
+    })
+        accessToken: string;
+
     @Column({
         type: 'varchar',
         width: 250,

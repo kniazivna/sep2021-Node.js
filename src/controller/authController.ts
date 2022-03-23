@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 
-import { authService, tokenService } from '../services';
+import { authService, tokenService, usersService } from '../services';
 import { ITokenData, IRequestExtended } from '../interfaces';
 import { COOKIE } from '../constants/cookie';
 import { IUser } from '../entity';
-import {tokenRepository} from "../repositiries/token/tokenRepository";
+import { tokenRepository } from '../repositiries/token/tokenRepository';
 
 class AuthController {
     public async registration(req: Request, res: Response): Promise<Response<ITokenData>> {
@@ -29,15 +29,19 @@ class AuthController {
 
     public async login(req: IRequestExtended, res:Response) {
         try {
-            const { id, email } = req.user as IUser;
+            const { id, email, password: hashPassword } = req.user as IUser;
 
-            const tokenPair = tokenService.generateTokenPair({userId: id, userEmail: email });
+            const { password } = req.body;
 
-            const {} = tokenPair;
-            await tokenRepository.createToken({ refreshToken });
+            await usersService.compareUserPasswords(password, hashPassword);
+
+            const { accessToken, refreshToken } = tokenService.generateTokenPair({ userId: id, userEmail: email });
+
+            await tokenRepository.createToken({ accessToken, refreshToken, userId: id });
 
             res.json({
-                ...tokenPair,
+                accessToken,
+                refreshToken,
                 user: req.user,
             });
         } catch (e) {

@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 
-import { IUser } from '../entity/user';
+import { IUser } from '../entity';
 import { userRepository } from '../repositiries/user/userRepository';
 import { config } from '../config/config';
 
@@ -16,6 +16,14 @@ class UsersService {
 
     public async getUserByEmail(email: string): Promise<IUser | undefined> {
         return userRepository.getUserByEmail(email);
+    }
+
+    public async compareUserPasswords(password: string, hash: string): Promise<void | Error> {
+        const isPasswordUnique = await bcrypt.compare(password, hash);
+
+        if (!isPasswordUnique) {
+            throw new Error('User not exists');
+        }
     }
 
     private async _hashPassword(password: string): Promise<string> {
