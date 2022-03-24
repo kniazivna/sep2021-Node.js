@@ -6,7 +6,7 @@ import { userRepository } from '../repositiries/user/userRepository';
 class UserMiddleware {
     async checkIsUserExist(req: IRequestExtended, res: Response, next: NextFunction): Promise<void> {
         try {
-            const userFromDB = await userRepository.getUserByEmail(req.body.userEmail);
+            const userFromDB = await userRepository.getUserByEmail(req.body.email);
 
             if (!userFromDB) {
                 res.status(404).json('User not found');
