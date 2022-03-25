@@ -2,11 +2,12 @@ import { NextFunction, Response } from 'express';
 import { tokenService, usersService } from '../services';
 import { IRequestExtended } from '../interfaces';
 import { tokenRepository } from '../repositiries/token/tokenRepository';
+import { constants } from '../constants';
 
 class AuthMiddleware {
     public async checkAccessToken(req:IRequestExtended, res: Response, next: NextFunction) {
         try {
-            const accessToken = req.get('Authorization');
+            const accessToken = req.get(constants.AUTHORIZATION);
 
             if (!accessToken) {
                 throw new Error('No token');
@@ -14,11 +15,11 @@ class AuthMiddleware {
 
             const { userEmail } = tokenService.verifyToken(accessToken);
 
-            /*const tokenPairFromDB = await tokenRepository.findByParams({ accessToken });
+            /* const tokenPairFromDB = await tokenRepository.findByParams({ accessToken });
 
             if (!tokenPairFromDB) {
                 throw new Error('Token not valid');
-            }*/
+            } */
 
             const userFromToken = await usersService.getUserByEmail(userEmail);
 
@@ -39,7 +40,7 @@ class AuthMiddleware {
 
     public async checkRefreshToken(req: IRequestExtended, res:Response, next: NextFunction) {
         try {
-            const refreshToken = req.get('Authorization');
+            const refreshToken = req.get(constants.AUTHORIZATION);
 
             if (!refreshToken) {
                 throw new Error('No token');

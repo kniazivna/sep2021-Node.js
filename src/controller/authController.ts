@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import { authService, tokenService, usersService } from '../services';
 import { ITokenData, IRequestExtended } from '../interfaces';
-import { COOKIE } from '../constants/cookie';
+import { COOKIE, constants } from '../constants';
 import { IUser } from '../entity';
 import { tokenRepository } from '../repositiries/token/tokenRepository';
 
@@ -51,7 +51,7 @@ class AuthController {
     public async refreshToken(req: IRequestExtended, res:Response) {
         try {
             const { id, email } = req.user as IUser;
-            const refreshTokenToDelete = req.get('Authorization');
+            const refreshTokenToDelete = req.get(constants.AUTHORIZATION);
 
             await tokenService.deleteTokenPairByParams({ refreshToken: refreshTokenToDelete });
 
