@@ -22,11 +22,11 @@ class AuthMiddleware {
 
             const userFromToken = await usersService.getUserByEmail(userEmail);
 
+            req.user = userFromToken;
+
             if (!userFromToken) {
                 throw new Error('Token not valid');
             }
-
-            req.user = userFromToken;
 
             next();
         } catch (e: any) {
