@@ -14,6 +14,12 @@ class AuthMiddleware {
 
             const { userEmail } = tokenService.verifyToken(accessToken);
 
+            const tokenPairFromDB = await tokenRepository.findByParams({ accessToken });
+
+             if (!tokenPairFromDB) {
+                throw new Error('Token not valid');
+            }
+
             const userFromToken = await usersService.getUserByEmail(userEmail);
 
             if (!userFromToken) {
@@ -24,8 +30,8 @@ class AuthMiddleware {
 
             next();
         } catch (e: any) {
-            res.json({
-                status: 400,
+            res.status(401).json({
+                status: 401,
                 message: e.message,
             });
         }
@@ -57,8 +63,8 @@ class AuthMiddleware {
 
             next();
         } catch (e: any) {
-            res.json({
-                status: 400,
+            res.status(401).json({
+                status: 401,
                 message: e.message,
             });
         }
