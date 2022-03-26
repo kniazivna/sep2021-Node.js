@@ -2,8 +2,8 @@ import { NextFunction, Response } from 'express';
 
 import { IRequestExtended } from '../interfaces';
 import { userRepository } from '../repositiries/user/userRepository';
-import {IUser} from "../entity";
-import {userSchema} from "../validator/userValidator";
+import { IUser } from '../entity';
+import { userSchema } from '../validator/userValidator';
 
 class UserMiddleware {
     async checkIsUserExist(req: IRequestExtended, res: Response, next: NextFunction): Promise<void> {
@@ -23,8 +23,8 @@ class UserMiddleware {
     }
 
     public async userValidation(req: IRequestExtended, res: Response, next: NextFunction): Promise<IUser | undefined> {
-        try{
-            const { error } = userSchema.validate()
+        try {
+            const { error } = userSchema.validate();
         } catch (e) {
 
         }
