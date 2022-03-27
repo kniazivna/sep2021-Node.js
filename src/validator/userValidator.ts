@@ -1,5 +1,5 @@
 import Joi from 'joi';
-
+//розібратись як ерори прописувати, додати ці схеми через юзер міделвари на реєстрацію і логін
 export const userSchema = {
     registration: Joi.object().keys({
         firstName: Joi.string().alphanum().min(3).max(30)
