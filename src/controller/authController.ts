@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 import { authService, tokenService, usersService } from '../services';
 import { ITokenData, IRequestExtended } from '../interfaces';
@@ -26,7 +26,7 @@ class AuthController {
         return res.json('Ok');
     }
 
-    public async login(req: IRequestExtended, res:Response) {
+    public async login(req: IRequestExtended, res:Response, next: NextFunction) {
         try {
             const { id, email, password: hashPassword } = req.user as IUser;
 
@@ -44,11 +44,11 @@ class AuthController {
                 user: req.user,
             });
         } catch (e) {
-            res.status(400).json(e);
+            next(e);
         }
     }
 
-    public async refreshToken(req: IRequestExtended, res:Response) {
+    public async refreshToken(req: IRequestExtended, res:Response, next: NextFunction) {
         try {
             const { id, email } = req.user as IUser;
             const refreshTokenToDelete = req.get(constants.AUTHORIZATION);
@@ -65,7 +65,7 @@ class AuthController {
                 user: req.user,
             });
         } catch (e) {
-            res.status(400).json(e);
+            next(e);
         }
     }
 }
