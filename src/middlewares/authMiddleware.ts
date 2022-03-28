@@ -8,7 +8,7 @@ import { ErrorHandler } from '../error/ErrorHandler';
 import { authValidator } from '../validators';
 
 class AuthMiddleware {
-    public async checkAccessToken(req:IRequestExtended, res: Response, next: NextFunction) {
+    public async checkAccessToken(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const accessToken = req.get(constants.AUTHORIZATION);
 
@@ -40,12 +40,12 @@ class AuthMiddleware {
         }
     }
 
-    public async checkRefreshToken(req: IRequestExtended, res:Response, next: NextFunction) {
+    public async checkRefreshToken(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const refreshToken = req.get(constants.AUTHORIZATION);
 
             if (!refreshToken) {
-                next(new ErrorHandler('No token', 401));
+                next(new ErrorHandler('No token', 400));
                 return;
             }
 
@@ -75,28 +75,30 @@ class AuthMiddleware {
 
     // VALIDATORS
 
-    public registration(req: IRequestExtended, res: Response, next: NextFunction) {
+    public isRegistrationValid(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
-            const { error } = authValidator.registration.validate(req.body);
+            const { error, value } = authValidator.registration.validate(req.body);
             if (error) {
                 next(new ErrorHandler(error.details[0].message, 400));
                 return;
             }
 
+            req.body = value;// value вже буде оброблене trim або ін.
             next();
         } catch (e) {
             next(e);
         }
     }
 
-    public login(req: IRequestExtended, res: Response, next: NextFunction) {
+    public isLoginValid(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
-            const { error } = authValidator.login.validate(req.body);
+            const { error, value } = authValidator.login.validate(req.body);
             if (error) {
                 next(new ErrorHandler(error.details[0].message, 400));
                 return;
             }
 
+            req.body = value;
             next();
         } catch (e) {
             next(e);
