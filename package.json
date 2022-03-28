@@ -26,15 +26,17 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
+    "nodemailer": "^6.7.3",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.43"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
+    "@types/joi": "^17.2.3",
+    "@types/nodemailer": "^6.4.4",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.19",
-    "@types/joi": "^17.2.3",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
     "eslint": "^8.9.0",

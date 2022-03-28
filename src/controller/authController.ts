@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { authService, tokenService, usersService } from '../services';
+import {
+    authService, emailService, tokenService, usersService,
+} from '../services';
 import { ITokenData, IRequestExtended } from '../interfaces';
 import { COOKIE, constants } from '../constants';
 import { IUser } from '../entity';
@@ -29,8 +31,9 @@ class AuthController {
     public async login(req: IRequestExtended, res:Response, next: NextFunction) {
         try {
             const { id, email, password: hashPassword } = req.user as IUser;
-
             const { password } = req.body;
+
+            await emailService.sendMail(email);
 
             await usersService.compareUserPasswords(password, hashPassword);
 
