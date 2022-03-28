@@ -5,6 +5,7 @@ import { IRequestExtended } from '../interfaces';
 import { tokenRepository } from '../repositiries/token/tokenRepository';
 import { constants } from '../constants';
 import { ErrorHandler } from '../error/ErrorHandler';
+import { authValidator } from '../validators';
 
 class AuthMiddleware {
     public async checkAccessToken(req:IRequestExtended, res: Response, next: NextFunction) {
@@ -65,6 +66,36 @@ class AuthMiddleware {
             }
 
             req.user = userFromToken;
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    // VALIDATORS
+
+    public registration(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { error } = authValidator.registration.validate(req.body);
+            if (error) {
+                next(new ErrorHandler(error.details[0].message, 400));
+                return;
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    public login(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { error } = authValidator.login.validate(req.body);
+            if (error) {
+                next(new ErrorHandler(error.details[0].message, 400));
+                return;
+            }
 
             next();
         } catch (e) {
