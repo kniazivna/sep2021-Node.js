@@ -1,10 +1,13 @@
 import nodemailer from 'nodemailer';
 
 import { config } from '../config/config';
-import { emailActionEnum } from "../constants/enums";
+import { EmailActionEnum, emailInfo } from '../constants';
 
 class EmailService {
-    sendMail(userEmail = '', action: emailActionEnum) {
+    sendMail(action: EmailActionEnum, userMail = '') {
+
+        const { subject, html } = emailInfo[action];
+
         const emailTransporter = nodemailer.createTransport({
             from: 'No Reply Sep2021-Node',
             service: 'gmail',
@@ -15,9 +18,9 @@ class EmailService {
         });
 
         return emailTransporter.sendMail({
-            to: userEmail,
-            subject: 'HELLO WORLD!',
-            html: 'HELLO THIS IS US MAIL',
+            to: userMail,
+            subject,
+            html,
         });
     }
 }
