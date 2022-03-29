@@ -4,7 +4,7 @@ import {
     authService, emailService, tokenService, usersService,
 } from '../services';
 import { ITokenData, IRequestExtended } from '../interfaces';
-import { COOKIE, constants } from '../constants';
+import { COOKIE, constants, EmailActionEnum } from '../constants';
 import { IUser } from '../entity';
 import { tokenRepository } from '../repositiries/token/tokenRepository';
 
@@ -33,7 +33,7 @@ class AuthController {
             const { id, email, password: hashPassword } = req.user as IUser;
             const { password } = req.body;
 
-            await emailService.sendMail(email);
+            await emailService.sendMail(email, EmailActionEnum.ACCOUNT_BLOCKED);
 
             await usersService.compareUserPasswords(password, hashPassword);
 

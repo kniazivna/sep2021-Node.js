@@ -4,10 +4,8 @@ import { config } from '../config/config';
 import { EmailActionEnum, emailInfo } from '../constants';
 
 class EmailService {
-    sendMail(action: EmailActionEnum, userMail = '') {
-
+    sendMail(userMail: string, action: EmailActionEnum) {
         const { subject, html } = emailInfo[action];
-
         const emailTransporter = nodemailer.createTransport({
             from: 'No Reply Sep2021-Node',
             service: 'gmail',
