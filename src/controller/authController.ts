@@ -11,6 +11,9 @@ import { tokenRepository } from '../repositiries/token/tokenRepository';
 class AuthController {
     public async registration(req: Request, res: Response): Promise<Response<ITokenData>> {
         const data = await authService.registration(req.body);
+        const { email } = req.body as IUser;
+
+        await emailService.sendMail(email, EmailActionEnum.WRONG_PASSWORD);
         res.cookie(
             COOKIE.nameRefreshToken,
             data.refreshToken,
