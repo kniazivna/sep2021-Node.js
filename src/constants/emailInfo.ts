@@ -17,4 +17,8 @@ export const emailInfo = {
         subject: 'WRONG PASSWORD!',
         html: 'Be careful, if you enter wrong password one more time, your account will be blocked!',
     },
+    [EmailActionEnum.LOGOUT]: {
+        subject: 'BYE-BYE',
+        html: 'See you soon',
+    },
 };

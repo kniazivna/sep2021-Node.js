@@ -3,4 +3,5 @@ export enum EmailActionEnum {
     ACCOUNT_BLOCKED =1,
     REGISTRATION =2,
     WRONG_PASSWORD =3,
+    LOGOUT =4,
 }

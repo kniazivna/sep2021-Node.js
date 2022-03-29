@@ -3,8 +3,8 @@ import { NextFunction, Request, Response } from 'express';
 import {
     authService, emailService, tokenService, usersService,
 } from '../services';
-import { ITokenData, IRequestExtended } from '../interfaces';
-import { COOKIE, constants, EmailActionEnum } from '../constants';
+import { IRequestExtended, ITokenData } from '../interfaces';
+import { constants, COOKIE, EmailActionEnum } from '../constants';
 import { IUser } from '../entity';
 import { tokenRepository } from '../repositiries/token/tokenRepository';
 
@@ -13,7 +13,8 @@ class AuthController {
         const data = await authService.registration(req.body);
         const { email } = req.body as IUser;
 
-        await emailService.sendMail(email, EmailActionEnum.WRONG_PASSWORD);
+        await emailService.sendMail(email, EmailActionEnum.REGISTRATION);
+
         res.cookie(
             COOKIE.nameRefreshToken,
             data.refreshToken,
@@ -24,9 +25,10 @@ class AuthController {
     }
 
     public async logout(req: IRequestExtended, res:Response): Promise<Response<string>> {
-        const { id } = req.user as IUser;
+        const { id, email } = req.user as IUser;
 
         await tokenService.deleteUserTokenPair(id);
+        await emailService.sendMail(email, EmailActionEnum.LOGOUT);
 
         return res.json('Ok');
     }
@@ -36,7 +38,7 @@ class AuthController {
             const { id, email, password: hashPassword } = req.user as IUser;
             const { password } = req.body;
 
-            await emailService.sendMail(email, EmailActionEnum.ACCOUNT_BLOCKED);
+            await emailService.sendMail(email, EmailActionEnum.WRONG_PASSWORD);
 
             await usersService.compareUserPasswords(password, hashPassword);
 
