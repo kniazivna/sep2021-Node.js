@@ -2,12 +2,12 @@ import 'reflect-metadata';
 import express from 'express';
 import { createConnection } from 'typeorm';
 
-import { apiRouter } from './router/apiRouter';
+import { apiRouter } from './router';
 import { config } from './config/config';
 
 const app = express();
-// @ts-ignore
-global.rootDir = __dirname;
+/* // @ts-ignore
+global.rootDir = __dirname; */
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
