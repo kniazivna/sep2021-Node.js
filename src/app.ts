@@ -6,6 +6,9 @@ import { apiRouter } from './router/apiRouter';
 import { config } from './config/config';
 
 const app = express();
+// @ts-ignore
+global.rootDir = __dirname;
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

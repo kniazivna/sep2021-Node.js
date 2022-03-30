@@ -38,7 +38,7 @@ class AuthController {
             const { id, email, password: hashPassword } = req.user as IUser;
             const { password } = req.body;
 
-            await emailService.sendMail(email, EmailActionEnum.WRONG_PASSWORD);
+            await emailService.sendMail(email, EmailActionEnum.WELCOME, { userName: 'Olena' });
 
             await usersService.compareUserPasswords(password, hashPassword);
 

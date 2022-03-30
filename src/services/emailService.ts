@@ -7,15 +7,21 @@ import { EmailActionEnum, emailInfo } from '../constants';
 
 class EmailService {
     public async sendMail(userMail: string, action: EmailActionEnum, context = {}): Promise<SentMessageInfo> {
-        const { subject, templateName } = emailInfo[action];
-
         const templateRenderer = new EmailTemplate({
             views: {
-                root: path.join(process.cwd(), 'email-templates'),
+                // @ts-ignore
+                root: path.join(global.rootDir, 'email-templates'),
             },
         });
 
-        Object.assign(context, {frontendUrl})
+        const rootDir = path.join(__dirname, '../');
+        const { subject, templateName } = emailInfo[action];
+         console.log(__dirname);
+        // @ts-ignore
+        console.log(global.rootDir, 'rooooot');//так задаємо кореневу папку
+        console.log(rootDir, 'THIS rooooot2222222');
+        console.log(process.cwd());
+        Object.assign(context, { frontendUrl: process.env.FRONTEND_URL });
 
         const html = await templateRenderer.render(templateName, context);
 
