@@ -1,12 +1,12 @@
-import nodemailer from 'nodemailer';
+import nodemailer, { SentMessageInfo } from 'nodemailer';
 import EmailTemplate from 'email-templates';
+import path from 'path';
 
 import { config } from '../config/config';
 import { EmailActionEnum, emailInfo } from '../constants';
-import path from 'path';
 
 class EmailService {
-    public async sendMail(userMail: string, action: EmailActionEnum): Promise<void> {
+    public async sendMail(userMail: string, action: EmailActionEnum, context = {}): Promise<SentMessageInfo> {
         const { subject, templateName } = emailInfo[action];
 
         const templateRenderer = new EmailTemplate({
@@ -15,7 +15,9 @@ class EmailService {
             },
         });
 
-        const html = await templateRenderer.render(templateName);
+        Object.assign(context, {frontendUrl})
+
+        const html = await templateRenderer.render(templateName, context);
 
         const emailTransporter = nodemailer.createTransport({
             from: 'No Reply Sep2021-Node',
