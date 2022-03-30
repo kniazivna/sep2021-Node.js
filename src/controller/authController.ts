@@ -25,10 +25,10 @@ class AuthController {
     }
 
     public async logout(req: IRequestExtended, res:Response): Promise<Response<string>> {
-        const { id, email } = req.user as IUser;
+        const { id/* , email */ } = req.user as IUser;
 
         await tokenService.deleteUserTokenPair(id);
-        await emailService.sendMail(email, EmailActionEnum.LOGOUT);
+        // await emailService.sendMail(email, EmailActionEnum.LOGOUT);
 
         return res.json('Ok');
     }
