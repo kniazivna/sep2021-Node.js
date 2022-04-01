@@ -88,7 +88,7 @@ class AuthController {
             // @ts-ignore
             await actionTokenRepository.createActionToken({ actionToken: token, type: ActionTokenTypes.forgotPassword, userId: id });
 
-            await emailService.sendMail(email, EmailActionEnum.WELCOME, { userName: 'Olena' });
+            await emailService.sendMail(email, EmailActionEnum.REGISTRATION, { userName: 'Olena' });
 
             res.sendStatus(204);
         } catch (e) {
