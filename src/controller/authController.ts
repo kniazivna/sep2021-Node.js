@@ -7,7 +7,7 @@ import { IRequestExtended, ITokenData } from '../interfaces';
 import { constants, COOKIE, EmailActionEnum } from '../constants';
 import { IUser } from '../entity';
 import { tokenRepository } from '../repositiries/token/tokenRepository';
-import { actionTokenRepository } from '../repositiries/actionToken/actionTokenRepository';
+// import { actionTokenRepository } from '../repositiries/actionToken/actionTokenRepository';
 import { ActionTokenTypes } from '../enums/actionTokenTypes.enum';
 
 class AuthController {
