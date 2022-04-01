@@ -81,14 +81,17 @@ class AuthController {
 
     async sendForgotPassword(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
-            const { id, email } = req.user as IUser;
+            const { id, email, firstName } = req.user as IUser;
 
             const token = tokenService.generateActionToken({ userId: id, userEmail: email });
 
             // @ts-ignore
             await actionTokenRepository.createActionToken({ actionToken: token, type: ActionTokenTypes.forgotPassword, userId: id });
 
-            await emailService.sendMail(email, EmailActionEnum.REGISTRATION, { userName: 'Olena' });
+            await emailService.sendMail(email, EmailActionEnum.REGISTRATION, {
+                firstName,
+                frontendUrl://далі не робила ще
+            });
 
             res.sendStatus(204);
         } catch (e) {
