@@ -7,7 +7,13 @@ import { User } from './user';
 import { config } from '../config/config';
 import { ActionTokenTypes } from '../enums/actionTokenTypes.enum';
 
-export interface IActionToken extends ICommonFields {
+export interface IActionToken extends ICommonFields{
+    actionToken: string;
+    type: ActionTokenTypes;
+    userId: number;
+}
+
+export interface IActionTokenToSave {
     actionToken: string;
     type: ActionTokenTypes;
     userId: number;

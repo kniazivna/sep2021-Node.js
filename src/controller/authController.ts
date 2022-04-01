@@ -7,6 +7,8 @@ import { IRequestExtended, ITokenData } from '../interfaces';
 import { constants, COOKIE, EmailActionEnum } from '../constants';
 import { IUser } from '../entity';
 import { tokenRepository } from '../repositiries/token/tokenRepository';
+import { actionTokenRepository } from '../repositiries/actionToken/actionTokenRepository';
+import { ActionTokenTypes } from '../enums/actionTokenTypes.enum';
 
 class AuthController {
     public async registration(req: Request, res: Response): Promise<Response<ITokenData>> {
@@ -72,6 +74,23 @@ class AuthController {
                 refreshToken,
                 user: req.user,
             });
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async sendForgotPassword(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { id, email } = req.user as IUser;
+
+            const token = tokenService.generateActionToken({ userId: id, userEmail: email });
+
+            // @ts-ignore
+            await actionTokenRepository.createActionToken({ actionToken: token, type: ActionTokenTypes.forgotPassword, userId: id });
+
+            await emailService.sendMail(email, EmailActionEnum.WELCOME, { userName: 'Olena' });
+
+            res.sendStatus(204);
         } catch (e) {
             next(e);
         }

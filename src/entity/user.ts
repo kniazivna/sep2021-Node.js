@@ -4,6 +4,8 @@ import {
 
 import { CommonFields, ICommonFields } from './commonFields';
 import { IPost, Post } from './post';
+import { IComment, Comment } from './comment';
+
 import { config } from '../config/config';
 
 export interface IUser extends ICommonFields{
@@ -15,6 +17,7 @@ export interface IUser extends ICommonFields{
     email: string;
     password: string;
    posts: IPost[];
+    comments: IComment[];
 }
 
 @Entity('users', { database: config.MYSQL_DATABASE_NAME })
@@ -63,4 +66,7 @@ export class User extends CommonFields implements IUser {
 
     @OneToMany(() => Post, (post) => post.user)
         posts: Post[];
+
+    @OneToMany(() => Comment, (comment) => comment.user)
+        comments: Comment[];
 }

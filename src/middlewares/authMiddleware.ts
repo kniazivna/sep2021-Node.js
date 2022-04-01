@@ -104,6 +104,21 @@ class AuthMiddleware {
             next(e);
         }
     }
+
+    isEmailValid(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { error, value } = authValidator.email.validate(req.body);
+            if (error) {
+                next(new ErrorHandler(error.details[0].message, 400));
+                return;
+            }
+
+            req.body = value;
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 export const authMiddleware = new AuthMiddleware();
