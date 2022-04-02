@@ -7,8 +7,8 @@ import { IRequestExtended, ITokenData } from '../interfaces';
 import { constants, COOKIE, EmailActionEnum } from '../constants';
 import { IUser } from '../entity';
 import { tokenRepository } from '../repositiries/token/tokenRepository';
-// import { actionTokenRepository } from '../repositiries/actionToken/actionTokenRepository';
-// import { ActionTokenTypes } from '../enums/actionTokenTypes.enum';
+import { actionTokenRepository } from '../repositiries/actionToken/actionTokenRepository';
+import { ActionTokenTypes } from '../enums/actionTokenTypes.enum';
 
 class AuthController {
     public async registration(req: Request, res: Response): Promise<Response<ITokenData>> {
@@ -79,21 +79,33 @@ class AuthController {
         }
     }
 
-    // async sendForgotPassword(req: IRequestExtended, res: Response, next: NextFunction) {
+    async sendForgotPassword(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { id, email, firstName } = req.user as IUser;
+
+            const token = tokenService.generateActionToken({ userId: id, userEmail: email });
+
+            await actionTokenRepository.createActionToken({ actionToken: token, type: ActionTokenTypes.forgotPassword, userId: id });
+
+            await emailService.sendMail(email, EmailActionEnum.FORGOT_PASSWORD, {
+                token,
+                username: firstName,
+            });
+
+            res.sendStatus(204);
+        } catch (e) {
+            next(e);
+        }
+    }
+    // async setPassword(req: IRequestExtended, res: Response, next: NextFunction) {
     //     try {
-    //         const { id, email, firstName } = req.user as IUser;
+    //         const { id } = req.user as IUser;
+    //         const actionToken = req.get(constants.AUTHORIZATION);
     //
-    //         const token = tokenService.generateActionToken({ userId: id, userEmail: email });
+    //         await userService.updateUser(id, req.body);
+    //         await actionTokenRepository.deleteByParams({ actionToken });
     //
-    //         // @ts-ignore
-    //         await actionTokenRepository.createActionToken({ actionToken: token, type: ActionTokenTypes.forgotPassword, userId: id });
-    //
-    //         await emailService.sendMail(email, EmailActionEnum.REGISTRATION, {
-    //             firstName,
-    //             frontendUrl://далі не робила ще
-    //         });
-    //
-    //         res.sendStatus(204);
+    //         res.sendStatus(201);
     //     } catch (e) {
     //         next(e);
     //     }

@@ -5,9 +5,10 @@ import { createConnection } from 'typeorm';
 import { apiRouter } from './router';
 import { config } from './config/config';
 
-const app = express();
 // @ts-ignore
 global.rootDir = __dirname;
+
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

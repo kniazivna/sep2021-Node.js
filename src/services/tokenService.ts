@@ -58,10 +58,8 @@ class TokenService {
         return jwt.verify(authToken, secretWord as string) as IUserPayload;
     }
 
-    public generateActionToken(payload: IUserPayload): String {
+    public generateActionToken(payload: IUserPayload): string {
         return jwt.sign(payload, config.SECRET_ACTION_KEY, { expiresIn: config.EXPIRES_IN_ACTION });
-        // const accessToken = jwt.sign(payload, config.SECRET_ACTION_KEY as string, { expiresIn: config.EXPIRES_IN_ACCESS });
-        // as String прописуємо,якщо в конфіг файлі не прописано значення за замовчуванням
     }
 }
 
