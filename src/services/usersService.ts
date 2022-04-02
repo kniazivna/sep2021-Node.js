@@ -30,12 +30,12 @@ class UsersService {
         return bcrypt.hash(password, Number(config.USER_SALT_ROUNDS));
     }
 
-    public async updatePassword(id: number, Searchobj: Partial<IUser>): Promise<object | undefined> {
-        if (Searchobj.password) {
-            Searchobj.password = await this._hashPassword(Searchobj.password);
+    public async updatePassword(id: number, searchobj: Partial<IUser>): Promise<object | undefined> {
+        if (searchobj.password) {
+            searchobj.password = await this._hashPassword(searchobj.password);
         }
 
-        return userRepository.updateUser(id, Searchobj);
+        return userRepository.updateUser(id, searchobj);
     }
 }
 

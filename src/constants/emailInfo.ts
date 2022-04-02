@@ -1,23 +1,23 @@
-import { EmailActionEnum } from './enums';
+import { emailActionEnum } from './enums';
 
 export const emailInfo = {
-    [EmailActionEnum.WELCOME]: {
+    [emailActionEnum.WELCOME]: {
         subject: 'Welcome to Sep2021-Node',
         templateName: 'welcome',
     },
-    [EmailActionEnum.ACCOUNT_BLOCKED]: {
+    [emailActionEnum.ACCOUNT_BLOCKED]: {
         subject: 'Your account was blocked',
         templateName: 'accountBlocked',
     },
-    [EmailActionEnum.REGISTRATION]: {
+    [emailActionEnum.REGISTRATION]: {
         subject: 'You create a new account',
         templateName: 'registration!',
     },
-    [EmailActionEnum.WRONG_PASSWORD]: {
+    [emailActionEnum.WRONG_PASSWORD]: {
         subject: 'WRONG PASSWORD!',
         templateName: 'forgotPassword',
     },
-    [EmailActionEnum.LOGOUT]: {
+    [emailActionEnum.LOGOUT]: {
         subject: 'BYE-BYE',
         templateName: 'logout',
     },

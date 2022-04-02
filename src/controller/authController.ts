@@ -15,7 +15,7 @@ class AuthController {
         const data = await authService.registration(req.body);
         const { email, firstName } = req.body as IUser;
 
-        await emailService.sendMail(email, EmailActionEnum.REGISTRATION, {
+        await emailService.sendMail(email, EmailActionEnum.WELCOME, {
             userName: firstName,
         });
 
