@@ -4,5 +4,5 @@ export enum EmailActionEnum {
     REGISTRATION =2,
     WRONG_PASSWORD =3,
     LOGOUT =4,
-    //FORGOT_PASSWORD =5,
+    // FORGOT_PASSWORD =5,
 }

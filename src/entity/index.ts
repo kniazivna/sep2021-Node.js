@@ -1,4 +1,4 @@
-// export * from './actionToken';
+export * from './actionToken';
 export * from './comment';
 export * from './commonFields';
 export * from './post';
