@@ -3,22 +3,22 @@ import { emailActionEnum } from './enums';
 export const emailInfo = {
     [emailActionEnum.WELCOME]: {
         subject: 'Welcome to Sep2021-Node',
-        templateName: 'welcome',
+        html: 'welcome',
     },
     [emailActionEnum.ACCOUNT_BLOCKED]: {
         subject: 'Your account was blocked',
-        templateName: 'accountBlocked',
+        html: 'accountBlocked',
     },
     [emailActionEnum.REGISTRATION]: {
         subject: 'You create a new account',
-        templateName: 'registration!',
+        html: 'registration!',
     },
     [emailActionEnum.WRONG_PASSWORD]: {
         subject: 'WRONG PASSWORD!',
-        templateName: 'forgotPassword',
+        html: 'forgotPassword',
     },
     [emailActionEnum.LOGOUT]: {
         subject: 'BYE-BYE',
-        templateName: 'logout',
-    },
+        html: 'logout',
+    }
 };
