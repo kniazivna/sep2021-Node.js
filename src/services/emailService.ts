@@ -6,29 +6,8 @@ import { config } from '../config/config';
 import { EmailActionEnum, emailInfo } from '../constants';
 
 class EmailService {
-    //це варіант вирішення проблеми за допомогою виходу на папку вверх, я обрала через оголошення глобально
-    /* private readonly templateRenderer = new EmailTemplate({
-        views: {
-            root: path.join(__dirname, '../', 'email-templates'),
-        },
-    }); */
-
     public async sendMail(userMail: string, action: EmailActionEnum, context = {}): Promise<SentMessageInfo> {
-        /*   const templateRenderer = new EmailTemplate({
-            views: {
-                // @ts-ignore
-                root: path.join(global.rootDir, 'email-templates'), // так задаємо кореневу папку
-            },
-        });
-
-        const rootDir = path.join(__dirname, '../');// вихід на папку назад */
         const { subject, templateName } = emailInfo[action];
-        /*   console.log(__dirname);
-        // @ts-ignore
-        console.log(global.rootDir, 'rooooot');
-        console.log(rootDir, 'THIS rooooot2222222');
-        console.log(process.cwd()); */
-
         const templateRenderer = await new EmailTemplate({
             views: {
                 // @ts-ignore

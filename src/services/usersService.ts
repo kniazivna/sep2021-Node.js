@@ -29,6 +29,14 @@ class UsersService {
     private async _hashPassword(password: string): Promise<string> {
         return bcrypt.hash(password, Number(config.USER_SALT_ROUNDS));
     }
+
+    public async updatePassword(id: number, Searchobj: Partial<IUser>): Promise<object | undefined> {
+        if (Searchobj.password) {
+            Searchobj.password = await this._hashPassword(Searchobj.password);
+        }
+
+        return userRepository.updateUser(id, Searchobj);
+    }
 }
 
 export const usersService = new UsersService();

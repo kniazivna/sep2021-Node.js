@@ -13,9 +13,11 @@ import { ActionTokenTypes } from '../enums/actionTokenTypes.enum';
 class AuthController {
     public async registration(req: Request, res: Response): Promise<Response<ITokenData>> {
         const data = await authService.registration(req.body);
-        const { email } = req.body as IUser;
+        const { email, firstName } = req.body as IUser;
 
-        await emailService.sendMail(email, EmailActionEnum.REGISTRATION);
+        await emailService.sendMail(email, EmailActionEnum.REGISTRATION, {
+            userName: firstName,
+        });
 
         res.cookie(
             COOKIE.nameRefreshToken,
@@ -27,22 +29,30 @@ class AuthController {
     }
 
     public async logout(req: IRequestExtended, res:Response): Promise<Response<string>> {
-        const { id/* , email */ } = req.user as IUser;
+        const { id, email, firstName } = req.user as IUser;
+
+        res.clearCookie(COOKIE.nameRefreshToken);
 
         await tokenService.deleteUserTokenPair(id);
-        // await emailService.sendMail(email, EmailActionEnum.LOGOUT);
+        await emailService.sendMail(email, EmailActionEnum.LOGOUT, {
+            userName: firstName,
+        });
 
         return res.json('Ok');
     }
 
     public async login(req: IRequestExtended, res:Response, next: NextFunction) {
         try {
-            const { id, email, password: hashPassword } = req.user as IUser;
+            const {
+                id, email, password: hashPassword, firstName,
+            } = req.user as IUser;
             const { password } = req.body;
 
-            await emailService.sendMail(email, EmailActionEnum.WELCOME, { userName: 'Olena' });
-
             await usersService.compareUserPasswords(password, hashPassword);
+
+            await emailService.sendMail(email, EmailActionEnum.WRONG_PASSWORD, {
+                userName: firstName,
+            });
 
             const { accessToken, refreshToken } = tokenService.generateTokenPair({ userId: id, userEmail: email });
 
@@ -97,19 +107,20 @@ class AuthController {
             next(e);
         }
     }
-    // async setPassword(req: IRequestExtended, res: Response, next: NextFunction) {
-    //     try {
-    //         const { id } = req.user as IUser;
-    //         const actionToken = req.get(constants.AUTHORIZATION);
-    //
-    //         await userService.updateUser(id, req.body);
-    //         await actionTokenRepository.deleteByParams({ actionToken });
-    //
-    //         res.sendStatus(201);
-    //     } catch (e) {
-    //         next(e);
-    //     }
-    // }
+
+    async setPassword(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.user as IUser;
+            const actionToken = req.get(constants.AUTHORIZATION);
+
+            await usersService.updatePassword(id, req.body);
+            await actionTokenRepository.deleteByParams({ actionToken });
+
+            res.sendStatus(201);
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 export const authController = new AuthController();
