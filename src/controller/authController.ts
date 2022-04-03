@@ -113,7 +113,7 @@ class AuthController {
             const { id } = req.user as IUser;
             const actionToken = req.get(constants.AUTHORIZATION);
 
-            await usersService.updatePassword(id, req.body);
+            await usersService.updateUser(id, req.body);
             await actionTokenRepository.deleteByParams({ actionToken });
 
             res.sendStatus(201);

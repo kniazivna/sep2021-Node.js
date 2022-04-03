@@ -26,16 +26,16 @@ class UsersService {
         }
     }
 
-    private async _hashPassword(password: string): Promise<string> {
-        return bcrypt.hash(password, Number(config.USER_SALT_ROUNDS));
+    public async updateUser(id: number, user: Partial<IUser>): Promise<object | undefined> {
+if (user.password) {
+    user.password = await this._hashPassword(user.password);
+}
+
+return userRepository.updateUser(id, user);
     }
 
-    public async updatePassword(id: number, searchobj: Partial<IUser>): Promise<object | undefined> {
-        if (searchobj.password) {
-            searchobj.password = await this._hashPassword(searchobj.password);
-        }
-
-        return userRepository.updateUser(id, searchobj);
+    private async _hashPassword(password: string): Promise<string> {
+        return bcrypt.hash(password, Number(config.USER_SALT_ROUNDS));
     }
 }
 

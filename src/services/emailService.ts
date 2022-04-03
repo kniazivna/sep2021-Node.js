@@ -8,15 +8,15 @@ import { EmailActionEnum, emailInfo } from '../constants';
 class EmailService {
     private readonly templateRenderer = new EmailTemplate({
         views: {
-            //ts-ignore
-            root: path.join(__dirname, '../', 'email-templates')
-        }
+            // ts-ignore
+            root: path.join(__dirname, '../', 'email-templates'),
+        },
     });
 
     public async sendMail(userMail: string, action: EmailActionEnum, context = {}): Promise<SentMessageInfo> {
         const { subject, templateName } = emailInfo[action];
 
-        Object.assign(context, {frontendUrl: process.env.FRONTEND_URL});
+        Object.assign(context, { frontendUrl: process.env.FRONTEND_URL });
 
         const html = await this.templateRenderer.render(templateName, context);
 

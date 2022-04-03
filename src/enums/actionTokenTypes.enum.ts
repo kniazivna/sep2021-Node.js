@@ -1,3 +1,4 @@
 export enum ActionTokenTypes {
-    forgotPassword,
+    // eslint-disable-next-line no-unused-vars
+    forgotPassword =0,
 }
