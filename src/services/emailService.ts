@@ -1,46 +1,27 @@
-import nodemailer, { SentMessageInfo } from 'nodemailer';
 import EmailTemplate from 'email-templates';
-
+import nodemailer, { SentMessageInfo } from 'nodemailer';
 import path from 'path';
+
 import { config } from '../config/config';
-import { emailActionEnum, emailInfo } from '../constants';
+import { EmailActionEnum, emailInfo } from '../constants';
 
 class EmailService {
-    templateRenderer = new EmailTemplate({
+    private readonly templateRenderer = new EmailTemplate({
         views: {
-            // @ts-ignore
-            root: path.join(__dirname, '../', 'email-templates'),
-        },
+            //ts-ignore
+            root: path.join(__dirname, '../', 'email-templates')
+        }
     });
 
-    async sendMail(userMail: string, action: emailActionEnum, context = {}): Promise<SentMessageInfo> {
-        // let path2 = 'src';
-        //
-        // if (NODE_ENV === 'prod') {
-        //   path2 = 'dist';
-        // }
-        //
-        // const templateRenderer = new EmailTemplate({
-        //   views: {
-        //     // @ts-ignore
-        //     root: path.join(global.rootDir, path2, 'email-templates')
-        //   }
-        // });
-        //
-        // const rootDir = path.join(__dirname, '../');
-        // console.log(__dirname);
-        // // @ts-ignore
-        // console.log(global.rootDir, 'ROOOOOOOOOT');
-        // console.log(rootDir, 'THIS THIS ROOOOOOOOOT');
-
+    public async sendMail(userMail: string, action: EmailActionEnum, context = {}): Promise<SentMessageInfo> {
         const { subject, templateName } = emailInfo[action];
 
-        Object.assign(context, { frontendUrl: process.env.FRONTEND_URL });
+        Object.assign(context, {frontendUrl: process.env.FRONTEND_URL});
 
         const html = await this.templateRenderer.render(templateName, context);
 
         const emailTransporter = nodemailer.createTransport({
-            from: 'No Reply Sep-2021',
+            from: 'No Reply Sep2021-Node',
             service: 'gmail',
             auth: {
                 user: config.NO_REPLY_EMAIL,
