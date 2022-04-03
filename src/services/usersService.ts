@@ -27,11 +27,11 @@ class UsersService {
     }
 
     public async updateUser(id: number, user: Partial<IUser>): Promise<object | undefined> {
-if (user.password) {
-    user.password = await this._hashPassword(user.password);
-}
+        if (user.password) {
+            user.password = await this._hashPassword(user.password);
+        }
 
-return userRepository.updateUser(id, user);
+        return userRepository.updateUser(id, user);
     }
 
     private async _hashPassword(password: string): Promise<string> {
