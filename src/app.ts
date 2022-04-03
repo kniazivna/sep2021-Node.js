@@ -5,8 +5,8 @@ import { createConnection } from 'typeorm';
 import { apiRouter } from './router';
 import { config } from './config/config';
 
-/*// @ts-ignore
-global.rootDir = __dirname;*/
+/* // @ts-ignore
+global.rootDir = __dirname; */
 
 const app = express();
 
