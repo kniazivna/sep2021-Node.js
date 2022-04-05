@@ -4,6 +4,7 @@ import { usersController } from '../controller';
 
 const router = Router();
 
+router.get('/', usersController.getUserPagination);
 router.post('/', usersController.createUser);
 router.get('/:email', usersController.getUserByEmail);
 
