@@ -55,6 +55,10 @@ class TokenService {
             secretWord = config.SECRET_REFRESH_KEY;
         }
 
+        if (tokenType === 'action') {
+            secretWord = config.SECRET_ACTION_KEY;
+        }
+
         return jwt.verify(authToken, secretWord as string) as IUserPayload;
     }
 

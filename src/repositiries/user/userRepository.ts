@@ -16,7 +16,7 @@ class UserRepository extends Repository<User> implements IUserRepository {
             .getOne();
     }
 
-    updateUser(id: number, user: Partial<IUser>): Promise<object> {
+    public updateUser(id: number, user: Partial<IUser>): Promise<object> {
         return getManager().getRepository(User).update({ id }, user);
     }
 }

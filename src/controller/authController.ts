@@ -50,7 +50,7 @@ class AuthController {
 
             await usersService.compareUserPasswords(password, hashPassword);
 
-            await emailService.sendMail(email, EmailActionEnum.WRONG_PASSWORD, {
+            await emailService.sendMail(email, EmailActionEnum.WELCOME, {
                 userName: firstName,
             });
 
@@ -99,7 +99,7 @@ class AuthController {
 
             await emailService.sendMail(email, EmailActionEnum.FORGOT_PASSWORD, {
                 token,
-                username: firstName,
+                userName: firstName,
             });
 
             res.sendStatus(204);
