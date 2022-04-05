@@ -25,12 +25,12 @@ class UserRepository extends Repository<User> implements IUserRepository {
         return getManager().getRepository(User).update({ id }, user);
     }
 
-    public async getNewUsers() {
-        return getManager().getRepository(User).find({
-            where: {
-                createdAt: { $gte: dayjs().utc().startOf('day')}
-            }
-        })
+    public getNewUsers() {
+        return getManager().getRepository(User)
+            .createQueryBuilder('user')
+            .where( 'user.createdAt >= :date', {date: dayjs().utc().startOf('day').format()})
+            .getMany()
+
     }
 }
 
