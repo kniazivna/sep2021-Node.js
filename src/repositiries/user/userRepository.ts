@@ -1,6 +1,11 @@
 import { EntityRepository, getManager, Repository } from 'typeorm';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
 import { IUser, User } from '../../entity';
 import { IUserRepository } from './userRepository.interface';
+
+dayjs.extend(utc);
 
 @EntityRepository(User)
 class UserRepository extends Repository<User> implements IUserRepository {
@@ -18,6 +23,14 @@ class UserRepository extends Repository<User> implements IUserRepository {
 
     public updateUser(id: number, user: Partial<IUser>): Promise<object> {
         return getManager().getRepository(User).update({ id }, user);
+    }
+
+    public async getNewUsers() {
+        return getManager().getRepository(User).find({
+            where: {
+                createdAt: { $gte: dayjs().utc().startOf('day')}
+            }
+        })
     }
 }
 

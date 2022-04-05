@@ -5,3 +5,4 @@ dist
 .env
 ormconfig.json
 READ_ONLY
+a.js

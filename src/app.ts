@@ -1,12 +1,13 @@
+/* // @ts-ignore
+global.rootDir = __dirname; */
+
 import 'reflect-metadata';
 import express from 'express';
 import { createConnection } from 'typeorm';
 
 import { apiRouter } from './router';
 import { config } from './config/config';
-
-/* // @ts-ignore
-global.rootDir = __dirname; */
+import { cronRun } from './cron';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.listen(PORT, async () => {
         const connection = await createConnection();
         if (connection) {
             console.log('Database connected');
+            cronRun();
         }
     } catch (err) {
         if (err) console.log(err);
