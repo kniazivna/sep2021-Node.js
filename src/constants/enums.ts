@@ -5,4 +5,5 @@ export enum EmailActionEnum {
     WRONG_PASSWORD,
     LOGOUT,
     FORGOT_PASSWORD,
+    CRON,
 }

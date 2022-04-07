@@ -5,6 +5,10 @@ import { userRepository } from '../repositiries/user/userRepository';
 import { config } from '../config/config';
 
 class UsersService {
+    public async getUsers(): Promise<IUser[]> {
+        return userRepository.getUsers();
+    }
+
     public async createUser(user: IUser): Promise<IUser> {
         const { password } = user;
 

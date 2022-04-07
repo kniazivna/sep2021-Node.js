@@ -25,4 +25,8 @@ export const emailInfo = {
         subject: 'You can update your password!',
         templateName: 'forgotPassword',
     },
+    [EmailActionEnum.CRON]: {
+        subject: 'It is mail for everybody by using cron!',
+        templateName: 'emailByCron',
+    },
 };

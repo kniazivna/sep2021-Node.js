@@ -10,6 +10,12 @@ dayjs.extend(utc);
 
 @EntityRepository(User)
 class UserRepository extends Repository<User> implements IUserRepository {
+    public async getUsers(): Promise<IUser[]> {
+        return getManager().getRepository(User)
+            .createQueryBuilder('user')
+            .leftJoin('Posts', 'posts', 'posts.userId = user.id')
+            .getMany();
+    }
     public async createUser(user: IUser): Promise<IUser> {
         return getManager()
             .getRepository(User)
@@ -35,7 +41,7 @@ class UserRepository extends Repository<User> implements IUserRepository {
         return getManager()
             .getRepository(User)
             .createQueryBuilder('user')
-            .where('user.createdAt <= :date', {
+            .where('user.createdAt >= :date', {
                 date: dayjs()
                     .utc()
                     .startOf('day')
