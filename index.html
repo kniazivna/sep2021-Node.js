@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Front</title>
+</head>
+<body>
+
+<button id="sendMessage">SEND</button>
+<button id="join1">JOIN ROOM 1</button>
+<button id="join2">JOIN ROOM 2</button>
+
+<script>
+const socket = io('http://localhost:4000', { query: 'userId=8&accessToken=754845' });//з цим query йдемо на бек
+
+const btn = document.getElementById('sendMessage');
+const join1 = document.getElementById('join1');
+const join2 = document.getElementById('join2');
+btn.onclick = () => {
+    //message це частинка роута
+                //назва події                //дані,які передаємо
+    socket.emit('message:create', { message: 'Hello first message with socket!' })
+}
+
+join1.onclick = () => {
+    socket.emit('join_room', {id: 1})
+}
+
+join2.onclick = () => {
+    socket.emit('join_room', {id: 2})
+}
+//обробляємо подію з беку
+socket.on('message: get-all', (data) => {
+    console.log(data);
+    //emit подію створює, а on обробляє
+})
+
+socket.on('user_join_room', (data) => {
+    console.log('*****************',data);
+})
+
+
+</script>
+
+</body>
+</html>
