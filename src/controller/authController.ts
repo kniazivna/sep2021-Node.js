@@ -1,35 +1,65 @@
 import { NextFunction, Request, Response } from 'express';
 
-import {
-    authService, emailService, tokenService, usersService,
-} from '../services';
-import { IRequestExtended, ITokenData } from '../interfaces';
+import { authService, emailService, s3Service, tokenService, usersService, } from '../services';
+import { IRequestExtended } from '../interfaces';
 import { constants, COOKIE, EmailActionEnum } from '../constants';
 import { IUser } from '../entity';
 import { tokenRepository } from '../repositiries/token/tokenRepository';
 import { actionTokenRepository } from '../repositiries/actionToken/actionTokenRepository';
 import { ActionTokenTypes } from '../enums/actionTokenTypes.enum';
+import { UploadedFile } from 'express-fileupload';
 
 class AuthController {
-    public async registration(req: Request, res: Response): Promise<Response<ITokenData>> {
-        const data = await authService.registration(req.body);
-        const { email, firstName } = req.body as IUser;
+    public async registration(req: Request, res: Response, next: NextFunction): Promise<void> {
+        //тепер при реєстрації юзер не логіниться
+        try {
+            const { email } = req.body;
+            const avatar = req.files?.avatar as UploadedFile;
 
-        await emailService.sendMail(email, EmailActionEnum.WELCOME, {
-            userName: firstName,
-        });
+            const userFromDB = await usersService.getUserByEmail(email);
 
-        res.cookie(
-            COOKIE.nameRefreshToken,
-            data.refreshToken,
-            { maxAge: COOKIE.maxAgeRefreshToken, httpOnly: true },
-        );
+            if (userFromDB) {
+                throw new Error(`User with email: ${email}  already exist`);
+            }
 
-        return res.json(data);
+            const createdUser = await usersService.createUser(req.body);
+
+            //UPLOAD PHOTO
+            //photos/users/userId/avatar258.jpg
+            if (avatar) {
+                let sendData = await s3Service.uploadFile(avatar, 'user', createdUser.id);
+
+                console.log(sendData.Location);
+
+                //UPDATE USER
+            }
+
+
+            const tokenData = await authService.registration(createdUser);
+            // const { email, firstName } = req.body as IUser;
+            //
+            // await emailService.sendMail(email, EmailActionEnum.WELCOME, {
+            //     userName: firstName,
+            // });
+            //
+            // res.cookie(
+            //     COOKIE.nameRefreshToken,
+            //     tokenData.refreshToken,
+            //     { maxAge: COOKIE.maxAgeRefreshToken, httpOnly: true },
+            // );
+
+            res.json(tokenData);
+        } catch (e) {
+            next(e);
+        }
     }
 
-    public async logout(req: IRequestExtended, res:Response): Promise<Response<string>> {
-        const { id, email, firstName } = req.user as IUser;
+    public async logout(req: IRequestExtended, res: Response): Promise<Response<string>> {
+        const {
+            id,
+            email,
+            firstName
+        } = req.user as IUser;
 
         res.clearCookie(COOKIE.nameRefreshToken);
 
@@ -41,10 +71,13 @@ class AuthController {
         return res.json('Ok');
     }
 
-    public async login(req: IRequestExtended, res:Response, next: NextFunction) {
+    public async login(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const {
-                id, email, password: hashPassword, firstName,
+                id,
+                email,
+                password: hashPassword,
+                firstName,
             } = req.user as IUser;
             const { password } = req.body;
 
@@ -54,9 +87,19 @@ class AuthController {
                 userName: firstName,
             });
 
-            const { accessToken, refreshToken } = tokenService.generateTokenPair({ userId: id, userEmail: email });
+            const {
+                accessToken,
+                refreshToken
+            } = tokenService.generateTokenPair({
+                userId: id,
+                userEmail: email
+            });
 
-            await tokenRepository.createToken({ accessToken, refreshToken, userId: id });
+            await tokenRepository.createToken({
+                accessToken,
+                refreshToken,
+                userId: id
+            });
 
             res.json({
                 accessToken,
@@ -68,16 +111,29 @@ class AuthController {
         }
     }
 
-    public async refreshToken(req: IRequestExtended, res:Response, next: NextFunction) {
+    public async refreshToken(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
-            const { id, email } = req.user as IUser;
+            const {
+                id,
+                email
+            } = req.user as IUser;
             const refreshTokenToDelete = req.get(constants.AUTHORIZATION);
 
             await tokenService.deleteTokenPairByParams({ refreshToken: refreshTokenToDelete });
 
-            const { accessToken, refreshToken } = await tokenService.generateTokenPair({ userId: id, userEmail: email });
+            const {
+                accessToken,
+                refreshToken
+            } = await tokenService.generateTokenPair({
+                userId: id,
+                userEmail: email
+            });
 
-            await tokenRepository.createToken({ accessToken, refreshToken, userId: id });
+            await tokenRepository.createToken({
+                accessToken,
+                refreshToken,
+                userId: id
+            });
 
             res.json({
                 accessToken,
@@ -91,11 +147,22 @@ class AuthController {
 
     async sendForgotPassword(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
-            const { id, email, firstName } = req.user as IUser;
+            const {
+                id,
+                email,
+                firstName
+            } = req.user as IUser;
 
-            const token = tokenService.generateActionToken({ userId: id, userEmail: email });
+            const token = tokenService.generateActionToken({
+                userId: id,
+                userEmail: email
+            });
 
-            await actionTokenRepository.createActionToken({ actionToken: token, type: ActionTokenTypes.forgotPassword, userId: id });
+            await actionTokenRepository.createActionToken({
+                actionToken: token,
+                type: ActionTokenTypes.forgotPassword,
+                userId: id
+            });
 
             await emailService.sendMail(email, EmailActionEnum.FORGOT_PASSWORD, {
                 token,

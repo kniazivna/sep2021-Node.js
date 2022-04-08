@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 import { authController } from '../controller';
-import { authMiddleware, userMiddleware } from '../middlewares';
+import { authMiddleware, fileMiddleware, userMiddleware } from '../middlewares';
 
 const router = Router();
 
-router.post('/registration', authMiddleware.isRegistrationValid, authController.registration);
+router.post('/registration', authMiddleware.isRegistrationValid, fileMiddleware.checkUserAvatar, authController.registration);
 // тут при реєстрації одразу відбувається login
 router.post('/login', authMiddleware.isLoginValid, userMiddleware.checkIsUserExist, authController.login);
 router.post('/logout', authMiddleware.checkAccessToken, authController.logout);

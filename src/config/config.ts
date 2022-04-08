@@ -20,6 +20,11 @@ export const config = {
     NO_REPLY_EMAIL: process.env.NO_REPLY,
     NO_REPLY_EMAIL_PASSWORD: process.env.NO_REPLY_PASSWORD,
 
+    S3_NAME: process.env.S3_NAME,
+    S3_REGION: process.env.S3_REGION,
+    S3_ACCESS_KEY: process.env.S3_ACCESS_KEY,
+    S3_SECRET_ACCESS_KEY: process.env.S3_SECRET_ACCESS_KEY,
+
     NODE_ENV: process.env.NODE_ENV || 'dev',
 
 };
