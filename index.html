@@ -7,9 +7,9 @@
 </head>
 <body>
 
-<button id="sendMessage">SEND</button>
-<button id="join1">JOIN ROOM 1</button>
-<button id="join2">JOIN ROOM 2</button>
+<button id="sendMessage">SEND TO ALL</button>
+<button id="join1">ROOM # 1</button>
+<button id="join2">ROOM # 2</button>
 
 <script>
 const socket = io('http://localhost:4000', { query: 'userId=8&accessToken=754845' });//з цим query йдемо на бек
@@ -20,7 +20,7 @@ const join2 = document.getElementById('join2');
 btn.onclick = () => {
     //message це частинка роута
                 //назва події                //дані,які передаємо
-    socket.emit('message:create', { message: 'Hello first message with socket!' })
+    socket.emit('message:create', { message: 'Hello, everybody!' })
 }
 
 join1.onclick = () => {

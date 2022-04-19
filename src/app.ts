@@ -11,6 +11,7 @@ import SocketIO from 'socket.io';
 import { apiRouter } from './router';
 import { config } from './config/config';
 import { socketController } from './controller/socketController';
+import { ISocket } from './interfaces';
 //import { cronRun } from './cron';
 
 const app = express();
@@ -24,7 +25,7 @@ io.on('connection', (socket: any) => {
     console.log(socket.handshake.query.accessToken);
 
     //подія яка прийшла з фронта
-    socket.on('message:create', (data: any) => socketController.messageCreate(io, socket, data));
+    socket.on('message:create', (data: ISocket) => socketController.messageCreateToAllAvoidSender(io, socket, data));
     //КОЖЕН SOCKET.ON можна розділити по окремих контролерах
 
         //тут обробник на подію message:create з фронта(тут просто index.html)
@@ -38,14 +39,16 @@ io.on('connection', (socket: any) => {
         //io.emit('message: get-all', { messages: [{ text: data.message }] });
 
 
-    socket.on('join_room', (data: any) => {
-        socket.join(data.id);
-        //шлеться всім, крім того хто цю подію тригернув
-        //one to many avoid sender
-        //socket.broadcast.to(data.id).emit('user_join_room', { message: `User ${socket.id} joined room ${data.id}` });
-        //emit to all users in room, includes sender
-        io.to(data.id).emit('user_join_room', { message: `User ${socket.id} joined room ${data.id}` });
-    });
+    // socket.on('join_room', (data: any) => {
+    //     socket.join(data.id);
+    //     //шлеться всім, крім того хто цю подію тригернув
+    //     //one to many avoid sender
+    //     //socket.broadcast.to(data.id).emit('user_join_room', { message: `User ${socket.id} joined room ${data.id}` });
+    //     //emit to all users in room, includes sender
+    //     io.to(data.id).emit('user_join_room', { message: `User ${socket.id} joined room ${data.id}` });
+    // });
+    //нижче ті самі дії, але використовуючи контроллер
+    socket.on('joinRoom', (data: ISocket) => socketController.joinRoom(io, socket, data));
 
         // ONE TO ONE
         // socket.emit(event, {});
