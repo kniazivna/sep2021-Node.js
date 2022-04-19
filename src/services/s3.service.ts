@@ -12,7 +12,7 @@ class S3Service {
         this.Bucket = new S3({
             region: config.S3_REGION,
             accessKeyId: config.S3_ACCESS_KEY,
-            secretAccessKey: config.SECRET_ACCESS_KEY
+            secretAccessKey: config.S3_SECRET_ACCESS_KEY
         })
     }
 

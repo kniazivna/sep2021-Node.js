@@ -8,7 +8,7 @@ import { createConnection } from 'typeorm';
 
 import { apiRouter } from './router';
 import { config } from './config/config';
-import { cronRun } from './cron';
+//import { cronRun } from './cron';
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.listen(PORT, async () => {
         const connection = await createConnection();
         if (connection) {
             console.log('Database connected');
-           await cronRun();
+          // await cronRun();
         }
     } catch (err) {
         if (err) console.log(err);
