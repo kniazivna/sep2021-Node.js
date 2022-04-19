@@ -13,6 +13,7 @@ import { config } from './config/config';
 import { socketController } from './controller/socketController';
 import { ISocket } from './interfaces';
 //import { cronRun } from './cron';
+import mongoose from 'mongoose';
 
 const app = express();
 const server = http.createServer(app);
@@ -72,6 +73,8 @@ io.on('connection', (socket: any) => {
 app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+mongoose.connect('mongodb://localhost:27017/sep2021Node');
 
 app.use(apiRouter);
 
